@@ -25,6 +25,7 @@ export interface CustomUrls {
   tokenUrl?: string;
   revokeUrl?: string;
   logoutUrl?: string;
+  introspectUrl?: string;
 }
 
 export interface TokenParams extends CustomUrls {

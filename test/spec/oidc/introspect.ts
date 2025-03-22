@@ -185,4 +185,23 @@ describe('introspect', () => {
     );
   });
 
+  it('uses custom introspectUrl when provided in options', async () => {
+    const { sdk, accessToken } = testContext;
+    const customIntrospectUrl = 'https://custom-introspect.example.com/introspect';
+    sdk.options.introspectUrl = customIntrospectUrl;
+    await introspect(sdk, TokenKind.ACCESS, accessToken);
+    expect(mocked.getWellKnown).not.toHaveBeenCalled();
+    expect(mocked.post).toHaveBeenCalledWith(
+      sdk, 
+      customIntrospectUrl,
+      'token_type_hint=access_token&token=accessToken',
+      expect.objectContaining({
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': expect.stringContaining('Basic ')
+        }
+      })
+    );
+  });
+
 });

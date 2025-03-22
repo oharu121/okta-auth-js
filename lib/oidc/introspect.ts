@@ -53,7 +53,15 @@ export async function oidcIntrospect (sdk, kind: TokenKind, token?: Token) {
     throw new AuthSdkError('Unable to find issuer');
   }
 
-  const { introspection_endpoint: introspectUrl }  = await getWellKnown(sdk, issuer);
+  // Check for a custom introspect URL first
+  let introspectUrl = sdk.options.introspectUrl;
+  
+  // Fall back to the well-known endpoint if no custom URL is provided
+  if (!introspectUrl) {
+    const { introspection_endpoint }  = await getWellKnown(sdk, issuer);
+    introspectUrl = introspection_endpoint;
+  }
+
   const authHeader = clientSecret ? btoa(`${clientId}:${clientSecret}`) : btoa(clientId);
   const args = toQueryString({
     // eslint-disable-next-line camelcase

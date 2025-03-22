@@ -16,19 +16,19 @@
 
 # Okta Auth JavaScript SDK
 
-* [Release status](#release-status)
-* [Need help?](#need-help)
-  * [Browser compatibility / polyfill](#browser-compatibility--polyfill)
-  * [Third party cookies](#third-party-cookies)
-* [Getting started](#getting-started)
-* [Usage guide](#usage-guide)
-* [Strategies for Obtaining Tokens](#strategies-for-obtaining-tokens)
-* [Configuration reference](#configuration-reference)
-* [API Reference](#api-reference)
-* [Building the SDK](#building-the-sdk)
-* [Node JS and React Native Usage](#node-js-and-react-native-usage)
-* [Migrating from previous versions](#migrating-from-previous-versions)
-* [Contributing](#contributing)
+- [Release status](#release-status)
+- [Need help?](#need-help)
+  - [Browser compatibility / polyfill](#browser-compatibility--polyfill)
+  - [Third party cookies](#third-party-cookies)
+- [Getting started](#getting-started)
+- [Usage guide](#usage-guide)
+- [Strategies for Obtaining Tokens](#strategies-for-obtaining-tokens)
+- [Configuration reference](#configuration-reference)
+- [API Reference](#api-reference)
+- [Building the SDK](#building-the-sdk)
+- [Node JS and React Native Usage](#node-js-and-react-native-usage)
+- [Migrating from previous versions](#migrating-from-previous-versions)
+- [Contributing](#contributing)
 
 The Okta Auth JavaScript SDK builds on top of our [Authentication API](https://developer.okta.com/docs/api/resources/authn) and [OpenID Connect & OAuth 2.0 API](https://developer.okta.com/docs/api/resources/oidc) to enable you to create a fully branded sign-in experience using JavaScript.
 
@@ -37,25 +37,27 @@ You can learn more on the [Okta + JavaScript][lang-landing] page in our document
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
 > :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning:<br>
+
 #### :warning: Bulletin Board :warning:
-* Review [Future of autoRenew](./docs/autoRenew-notice.md) <br>
-* Review [End of Third-Party Cookies](https://developer.okta.com/blog/2024/02/29/third-party-cookies) <br>
-> :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning::warning:<br>
+
+- Review [Future of autoRenew](./docs/autoRenew-notice.md) <br>
+- Review [End of Third-Party Cookies](https://developer.okta.com/blog/2024/02/29/third-party-cookies) <br>
+  > :warning: :warning: :warning: :warning: :warning: :warning: :warning: :warning::warning:<br>
 
 ## Release Status
 
 :heavy_check_mark: The current stable major version series is: `7.x`
 
-| Version   | Status                           |
-| -------   | -------------------------------- |
-| `7.x`     | :heavy_check_mark: Stable        |
-| `6.x`     | :x: Retired                      |
-| `5.x`     | :x: Retired                      |
-| `4.x`     | :x: Retired                      |
-| `3.x`     | :x: Retired                      |
-| `2.x`     | :x: Retired                      |
-| `1.x`     | :x: Retired                      |
-| `0.x`     | :x: Retired                      |
+| Version | Status                    |
+| ------- | ------------------------- |
+| `7.x`   | :heavy_check_mark: Stable |
+| `6.x`   | :x: Retired               |
+| `5.x`   | :x: Retired               |
+| `4.x`   | :x: Retired               |
+| `3.x`   | :x: Retired               |
+| `2.x`   | :x: Retired               |
+| `1.x`   | :x: Retired               |
+| `0.x`   | :x: Retired               |
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -63,8 +65,8 @@ The latest release can always be found on the [releases page][github-releases].
 
 If you run into problems using the SDK, you can:
 
-* Ask questions on the [Okta Developer Forums][devforum]
-* Post [issues][github-issues] here on GitHub (for code errors)
+- Ask questions on the [Okta Developer Forums][devforum]
+- Post [issues][github-issues] here on GitHub (for code errors)
 
 Users migrating from previous versions of this SDK should see [Migrating Guide](#migrating-from-previous-versions) to learn what changes are necessary.
 
@@ -74,35 +76,40 @@ This SDK is known to work with current versions of Chrome, Firefox, and Safari o
 
 Compatibility with IE 11 / Edge can be accomplished by adding polyfill/shims for the following objects:
 
-* ES Promise
-* Array.from
-* TextEncoder
-* Object.assign
-* UInt8 typed array
-* webcrypto (crypto.subtle)
+- ES Promise
+- Array.from
+- TextEncoder
+- Object.assign
+- UInt8 typed array
+- webcrypto (crypto.subtle)
 
-> :warning: crypto polyfills are unable to use the operating system as a source of good quality entropy used to generate pseudo-random numbers that are the key to good cryptography.  As such we take the posture that crypto polyfills are less secure and we advise against using them.
+> :warning: crypto polyfills are unable to use the operating system as a source of good quality entropy used to generate pseudo-random numbers that are the key to good cryptography. As such we take the posture that crypto polyfills are less secure and we advise against using them.
 
 This module provides an entrypoint that implements all required polyfills.
 
-If you are using the JS on a web page from the browser, you can copy the `node_modules/@okta/okta-auth-js/dist` contents to publicly hosted directory, and include a reference to the `okta-auth-js.polyfill.js` file in a `<script>` tag. It should be loaded before any other scripts which depend on the polyfill.  
+If you are using the JS on a web page from the browser, you can copy the `node_modules/@okta/okta-auth-js/dist` contents to publicly hosted directory, and include a reference to the `okta-auth-js.polyfill.js` file in a `<script>` tag. It should be loaded before any other scripts which depend on the polyfill.
 
 If you're using a bundler like [Webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/), you can simply import import or require `@okta/okta-auth-js/polyfill` at or near the beginning of your application's code:
 
 ```javascript
-import '@okta/okta-auth-js/polyfill';
+import "@okta/okta-auth-js/polyfill";
 ```
 
 or
 
 ```javascript
-require('@okta/okta-auth-js/polyfill');
+require("@okta/okta-auth-js/polyfill");
 ```
 
 The built polyfill bundle is also available on our global CDN. Include the following script in your HTML file to load before any other scripts:
 
 ```html
-<script src="https://global.oktacdn.com/okta-auth-js/7.5.1/okta-auth-js.polyfill.js" type="text/javascript" integrity="sha384-EBFsuVdi4TGp/DwS7b+t+wA8zmWK10omkX05ZjJWQhzWuW31t7FWEGOnHQeIr8+L" crossorigin="anonymous"></script>
+<script
+  src="https://global.oktacdn.com/okta-auth-js/7.5.1/okta-auth-js.polyfill.js"
+  type="text/javascript"
+  integrity="sha384-EBFsuVdi4TGp/DwS7b+t+wA8zmWK10omkX05ZjJWQhzWuW31t7FWEGOnHQeIr8+L"
+  crossorigin="anonymous"
+></script>
 ```
 
 > :warning: The version shown in this sample may be older than the current version. We recommend using the highest version available
@@ -111,15 +118,15 @@ The built polyfill bundle is also available on our global CDN. Include the follo
 
 Many browsers have started blocking cross-origin or "third party" cookies by default. Although most of the Okta APIs supported by this SDK do not rely upon cookies, there are a few methods which do. These methods will break if third party cookies are blocked:
 
-* [session](#session) APIs require access to cookies stored on the Okta domain.
-  * [session.setCookieAndRedirect](#sessionsetcookieandredirectsessiontoken-redirecturi)
-  * [session.exists](#sessionexists)
-  * [session.get](#sessionget)
-  * [session.refresh](#sessionrefresh)
-  * [closeSession](#closesession)
-* [token](#token)
-  * [token.getWithoutPrompt](#tokengetwithoutpromptoptions) must have access to cookies on the Okta domain via an iFrame running on your application's page.
-  * [token.renew](#tokenrenewtokentorenew) uses [token.getWithoutPrompt](#tokengetwithoutpromptoptions) and is subject to the same limitations.
+- [session](#session) APIs require access to cookies stored on the Okta domain.
+  - [session.setCookieAndRedirect](#sessionsetcookieandredirectsessiontoken-redirecturi)
+  - [session.exists](#sessionexists)
+  - [session.get](#sessionget)
+  - [session.refresh](#sessionrefresh)
+  - [closeSession](#closesession)
+- [token](#token)
+  - [token.getWithoutPrompt](#tokengetwithoutpromptoptions) must have access to cookies on the Okta domain via an iFrame running on your application's page.
+  - [token.renew](#tokenrenewtokentorenew) uses [token.getWithoutPrompt](#tokengetwithoutpromptoptions) and is subject to the same limitations.
 
 If your application depends on any of these methods, you should try to either rewrite your application to avoid using these methods or communicate to your users that they must enable third party cookies. Okta engineers are currently working on a better long-term solution to this problem.
 
@@ -129,8 +136,8 @@ Installing the Authentication SDK is simple. You can include it in your project 
 
 You'll also need:
 
-* An Okta account, called an _organization_ (sign up for a free [developer organization](https://developer.okta.com/signup) if you need one)
-* An Okta application, which can be created using the Okta Admin UI
+- An Okta account, called an _organization_ (sign up for a free [developer organization](https://developer.okta.com/signup) if you need one)
+- An Okta application, which can be created using the Okta Admin UI
 
 ### Creating your Okta application
 
@@ -158,8 +165,8 @@ After you sign users out of your app and out of Okta, you have to redirect users
 
 Using our npm module is a good choice if:
 
-* You have a build system in place where you manage dependencies with npm.
-* You do not want to load scripts directly from third party sites.
+- You have a build system in place where you manage dependencies with npm.
+- You do not want to load scripts directly from third party sites.
 
 To install [@okta/okta-auth-js](https://www.npmjs.com/package/@okta/okta-auth-js):
 
@@ -172,12 +179,17 @@ yarn add @okta/okta-auth-js
 npm install --save @okta/okta-auth-js
 ```
 
-If you are using the JS on a web page from the browser, you can copy the `node_modules/@okta/okta-auth-js/dist` contents to publicly hosted directory, and include a reference to the `okta-auth-js.min.js` file in a `<script>` tag.  
+If you are using the JS on a web page from the browser, you can copy the `node_modules/@okta/okta-auth-js/dist` contents to publicly hosted directory, and include a reference to the `okta-auth-js.min.js` file in a `<script>` tag.
 
 The built library bundle is also available on our global CDN. Include the following script in your HTML file to load before your application script:
 
 ```html
-<script src="https://global.oktacdn.com/okta-auth-js/7.5.1/okta-auth-js.min.js" type="text/javascript" integrity="sha384-6epSwnIDkI5zFNEVNjEYy3A7aSZ+C7ehmEyG8zDJZfP9Bmnxc51TK8du+2me4pjb" crossorigin="anonymous"></script>
+<script
+  src="https://global.oktacdn.com/okta-auth-js/7.5.1/okta-auth-js.min.js"
+  type="text/javascript"
+  integrity="sha384-6epSwnIDkI5zFNEVNjEYy3A7aSZ+C7ehmEyG8zDJZfP9Bmnxc51TK8du+2me4pjb"
+  crossorigin="anonymous"
+></script>
 ```
 
 > :warning: The version shown in this sample may be older than the current version. We recommend using the highest version available
@@ -187,20 +199,20 @@ Then you can create an instance of the `OktaAuth` object, available globally.
 ```javascript
 const oktaAuth = new OktaAuth({
   // config
-})
+});
 ```
 
 However, if you're using a bundler like [Webpack](https://webpack.github.io/) or [Rollup](https://rollupjs.org/) you can simply import or require the module.
 
 ```javascript
 // ES module
-import { OktaAuth } from '@okta/okta-auth-js'
-const authClient = new OktaAuth(/* configOptions */)
+import { OktaAuth } from "@okta/okta-auth-js";
+const authClient = new OktaAuth(/* configOptions */);
 ```
 
 ```javascript
 // CommonJS
-var OktaAuth = require('@okta/okta-auth-js').OktaAuth;
+var OktaAuth = require("@okta/okta-auth-js").OktaAuth;
 var authClient = new OktaAuth(/* configOptions */);
 ```
 
@@ -208,8 +220,8 @@ var authClient = new OktaAuth(/* configOptions */);
 
 For an overview of the client's features and authentication flows, check out [our developer docs](https://developer.okta.com/docs/guides/auth-js/main/). There, you will learn how to use the Auth SDK on a simple static page to:
 
-* Retrieve and store an OpenID Connect (OIDC) token
-* Get an Okta session
+- Retrieve and store an OpenID Connect (OIDC) token
+- Get an Okta session
 
 > :warning: The developer docs may be written for an earlier version of this library. See [Migrating from previous versions](#migrating-from-previous-versions).
 
@@ -221,9 +233,9 @@ You can also browse the full [API reference documentation](#api-reference).
 
 ```javascript
 var config = {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  clientId: 'GHtf9iJdr60A9IYrR0jw',
-  redirectUri: 'https://acme.com/oauth2/callback/home',
+  issuer: "https://{yourOktaDomain}/oauth2/default",
+  clientId: "GHtf9iJdr60A9IYrR0jw",
+  redirectUri: "https://acme.com/oauth2/callback/home",
 };
 
 var authClient = new OktaAuth(config);
@@ -231,12 +243,12 @@ var authClient = new OktaAuth(config);
 
 ### Running as a service
 
-By default, creating a new instance of `OktaAuth` will not create any asynchronous side-effects. However, certain features such as [token auto renew](#autorenew), [token auto remove](#autoremove) and [cross-tab synchronization](#syncstorage) require `OktaAuth` to be running as a service. This means timeouts are set in the background which will continue working until the service is stopped.  To start the `OktaAuth` service, simply call the `start` method right after creation and before calling other methods like [handleRedirect](#handleredirectoriginaluri). To terminate all background processes, call `stop`. See [Service Configuration](#services) for more info.
+By default, creating a new instance of `OktaAuth` will not create any asynchronous side-effects. However, certain features such as [token auto renew](#autorenew), [token auto remove](#autoremove) and [cross-tab synchronization](#syncstorage) require `OktaAuth` to be running as a service. This means timeouts are set in the background which will continue working until the service is stopped. To start the `OktaAuth` service, simply call the `start` method right after creation and before calling other methods like [handleRedirect](#handleredirectoriginaluri). To terminate all background processes, call `stop`. See [Service Configuration](#services) for more info.
 
 ```javascript
-  var authClient = new OktaAuth(config);
-  await authClient.start(); // start the service
-  await authClient.stop(); // stop the service
+var authClient = new OktaAuth(config);
+await authClient.start(); // start the service
+await authClient.stop(); // stop the service
 ```
 
 > **Note:** Starting the service will also call [authStateManager.updateAuthState](#authstatemanagerupdateauthstate).
@@ -253,22 +265,27 @@ import {
   AccessToken,
   IDToken,
   UserClaims,
-  TokenParams
-} from '@okta/okta-auth-js';
+  TokenParams,
+} from "@okta/okta-auth-js";
 
 const config: OktaAuthOptions = {
-  issuer: 'https://{yourOktaDomain}'
+  issuer: "https://{yourOktaDomain}",
 };
 
 const authClient: OktaAuth = new OktaAuth(config);
 const tokenManager: TokenManagerInterface = authClient.tokenManager;
-const accessToken: AccessToken = await tokenManager.get('accessToken') as AccessToken;
-const idToken: IDToken = await tokenManager.get('idToken') as IDToken;
-const userInfo: UserClaims = await authClient.token.getUserInfo(accessToken, idToken);
+const accessToken: AccessToken = (await tokenManager.get(
+  "accessToken"
+)) as AccessToken;
+const idToken: IDToken = (await tokenManager.get("idToken")) as IDToken;
+const userInfo: UserClaims = await authClient.token.getUserInfo(
+  accessToken,
+  idToken
+);
 
 if (!userInfo) {
   const tokenParams: TokenParams = {
-    scopes: ['openid', 'email', 'custom_scope'],
+    scopes: ["openid", "email", "custom_scope"],
   };
   authClient.token.getWithRedirect(tokenParams);
 }
@@ -276,9 +293,9 @@ if (!userInfo) {
 
 #### Usage with Typescript < 3.6
 
-Typescript versions prior to 3.6 have no type definitions for WebAuthn. 
-Support for WebAuthn in IDX API was introduced in `@okta/okta-auth-js@6.1.0`. 
-To solve this issue please install package `@types/webappsec-credential-management` version `^0.5.1`. 
+Typescript versions prior to 3.6 have no type definitions for WebAuthn.
+Support for WebAuthn in IDX API was introduced in `@okta/okta-auth-js@6.1.0`.
+To solve this issue please install package `@types/webappsec-credential-management` version `^0.5.1`.
 
 ### Strategies for Obtaining Tokens
 
@@ -289,13 +306,13 @@ Web and native clients can obtain tokens using the `authorization_code` flow whi
 ```javascript
 var config = {
   // Required config
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  clientId: 'GHtf9iJdr60A9IYrR0jw',
-  redirectUri: 'https://acme.com/oauth2/callback/home',
+  issuer: "https://{yourOktaDomain}/oauth2/default",
+  clientId: "GHtf9iJdr60A9IYrR0jw",
+  redirectUri: "https://acme.com/oauth2/callback/home",
 
   // Use authorization_code flow
-  responseType: 'code',
-  pkce: false
+  responseType: "code",
+  pkce: false,
 };
 
 var authClient = new OktaAuth(config);
@@ -318,12 +335,11 @@ Implicit OAuth flow is available as an option if PKCE flow cannot be supported i
 Implicit flow can be enabled by setting the `pkce` option to `false`
 
 ```javascript
-
 var config = {
-  pkce:  false,
+  pkce: false,
 
   // other config
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  issuer: "https://{yourOktaDomain}/oauth2/default",
 };
 
 var authClient = new OktaAuth(config);
@@ -331,8 +347,8 @@ var authClient = new OktaAuth(config);
 
 ### Redirects and Routing
 
-
 To sign a user in, your application must redirect the browser to the Okta-hosted sign-in page.
+
 > **Note:** Initial redirect to Okta-hosted sign-in page starts a transaction with a stateToken lifetime set to one hour.
 
 After successful authentication, the browser is redirected back to your application along with information about the user.
@@ -342,25 +358,23 @@ Depending on your preferences it is possible to use the following callback strat
 
 Most applications will handle an OAuth callback using a special route/page, separate from the signin page. However some SPA applications have no routing logic and will want to handle everything in a single page.
 
-
 1. Create / configure your auth-js instance
-2. Before starting the OktaAuth service, or making **any other API calls with auth-js** , call *token.isLoginRedirect* - if this returns true, call *token.parseFromUrl* and save tokens using *tokenManager.setTokens*.
-      **It’s important that no other app logic runs until the async parseFromUrl / token manager logic is complete**
+2. Before starting the OktaAuth service, or making **any other API calls with auth-js** , call _token.isLoginRedirect_ - if this returns true, call _token.parseFromUrl_ and save tokens using _tokenManager.setTokens_.
+   **It's important that no other app logic runs until the async parseFromUrl / token manager logic is complete**
 3. After this, continue normal app logic
 
 ```javascript
-
 async function main() {
   // create OktaAuth instance
   var config = {
-    issuer: 'https://{yourOktaDomain}/oauth2/default',
-    clientId: 'GHtf9iJdr60A9IYrR0jw',
-    redirectUri: 'https://acme.com/oauth2/callback/home',
+    issuer: "https://{yourOktaDomain}/oauth2/default",
+    clientId: "GHtf9iJdr60A9IYrR0jw",
+    redirectUri: "https://acme.com/oauth2/callback/home",
   };
   authClient = new OktaAuth(config);
 
   // Subscribe to authState change event.
-  authClient.authStateManager.subscribe(function(authState) {
+  authClient.authStateManager.subscribe(function (authState) {
     // Logic based on authState is done here.
     if (!authState.isAuthenticated) {
       // render unathenticated view
@@ -396,24 +410,27 @@ Additionally, if using hash routing, we recommend using PKCE and responseMode "q
 4. After successful authentication, Okta will redirect back to the configured [redirectUri](#redirecturi), your app should load on the dedicated callback route
 5. On this callback page:
    1. call [token.parseFromUrl](#tokenparsefromurloptions) to retrieve tokens
-   2. Add tokens to the  `TokenManager`: [tokenManager.setTokens](#tokenmanagersettokenstokens)
+   2. Add tokens to the `TokenManager`: [tokenManager.setTokens](#tokenmanagersettokenstokens)
 6. Read saved route and redirect to it: [getOriginalUri](#getoriginaluristate)
 
 ### Enabling DPoP
-<sub><sup>*Reference: DPoP (Demonstrating Proof-of-Possession) - [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449)*</sub></sup>
+
+<sub><sup>_Reference: DPoP (Demonstrating Proof-of-Possession) - [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449)_</sub></sup>
 
 #### Requirements
-* `DPoP` must be enabled in your Okta application ([Guide: Configure DPoP](https://developer.okta.com/docs/guides/dpop/main/))
-* Only supported on web (browser)
-* `https` is required. A [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) is required for `WebCrypto.subtle`
-* Targeted browsers must support `IndexedDB` ([MDN](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), [caniuse](https://caniuse.com/indexeddb))
-* :warning: IE11 (and lower) is not supported!
+
+- `DPoP` must be enabled in your Okta application ([Guide: Configure DPoP](https://developer.okta.com/docs/guides/dpop/main/))
+- Only supported on web (browser)
+- `https` is required. A [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) is required for `WebCrypto.subtle`
+- Targeted browsers must support `IndexedDB` ([MDN](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), [caniuse](https://caniuse.com/indexeddb))
+- :warning: IE11 (and lower) is not supported!
 
 #### Configuration
+
 ```javascript
 const config = {
   // other configurations
-  pkce: true,     // required
+  pkce: true, // required
   dpop: true,
 };
 
@@ -421,9 +438,11 @@ const authClient = new OktaAuth(config);
 ```
 
 #### Providing DPoP Proof to Resource Requests
-<sub><sup>*Reference: **The DPoP Authentication Scheme** ([RFC9449](https://datatracker.ietf.org/doc/html/rfc9449#name-the-dpop-authentication-sch))*</sub></sup>
+
+<sub><sup>_Reference: **The DPoP Authentication Scheme** ([RFC9449](https://datatracker.ietf.org/doc/html/rfc9449#name-the-dpop-authentication-sch))_</sub></sup>
 
 ##### DPoP-Protected Resource Request ([link](https://datatracker.ietf.org/doc/html/rfc9449#name-dpop-protected-resource-req))
+
 ```
 GET /protectedresource HTTP/1.1
 Host: resource.example.org
@@ -432,41 +451,50 @@ DPoP: eyJ0eXAiOiJkcG9wK2p3dCIsIm...
 ```
 
 ##### Fetching DPoP-Protected Resource
+
 ```javascript
-async function dpopAuthenticatedFetch (url, options) {
+async function dpopAuthenticatedFetch(url, options) {
   const { method } = options;
   const dpop = await authClient.getDPoPAuthorizationHeaders({ url, method });
   // dpop = { Authorization: "DPoP token****", Dpop: "proof****" }
-  const headers = new Headers({...options.headers, ...dpop});
-  return fetch(url, {...options, headers });
+  const headers = new Headers({ ...options.headers, ...dpop });
+  return fetch(url, { ...options, headers });
 }
 ```
 
 #### Handling `use_dpop_nonce`
-<sub><sup>*Reference: **Resource Server-Provided Nonce** ([RFC9449](https://datatracker.ietf.org/doc/html/rfc9449#name-resource-server-provided-no))*</sub></sup>
+
+<sub><sup>_Reference: **Resource Server-Provided Nonce** ([RFC9449](https://datatracker.ietf.org/doc/html/rfc9449#name-resource-server-provided-no))_</sub></sup>
 
 > Resource servers can also choose to provide a nonce value to be included in DPoP proofs sent to them. They provide the nonce using the DPoP-Nonce header in the same way that authorization servers do...
 
 ##### Resource Server Response
+
 ```
 HTTP/1.1 401 Unauthorized
 WWW-Authenticate: DPoP error="use_dpop_nonce", \
    error_description="Resource server requires nonce in DPoP proof"
 DPoP-Nonce: eyJ7S_zG.eyJH0-Z.HX4w-7v
 ```
+
 ##### Handling Response
+
 ```javascript
-async function dpopAuthenticatedFetch (url, options) {
+async function dpopAuthenticatedFetch(url, options) {
   // ...previous example...
-  const resp = await fetch(url, {...options, headers });
+  const resp = await fetch(url, { ...options, headers });
   // resp = HTTP/1.1 401 Unauthorized...
 
   if (!resp.ok) {
     const nonce = authClient.parseUseDPoPNonceError(resp.headers);
     if (nonce) {
-      const retryDpop = await authClient.getDPoPAuthorizationHeaders({ url, method, nonce });
-      const retryHeaders = new Headers({...options.headers, ...retryDpop});
-      return fetch(url, {...options, headers: retryHeaders });
+      const retryDpop = await authClient.getDPoPAuthorizationHeaders({
+        url,
+        method,
+        nonce,
+      });
+      const retryHeaders = new Headers({ ...options.headers, ...retryDpop });
+      return fetch(url, { ...options, headers: retryHeaders });
     }
   }
 
@@ -474,7 +502,8 @@ async function dpopAuthenticatedFetch (url, options) {
 }
 ```
 
-#### Ensure browser can support DPoP (*Recommended*)
+#### Ensure browser can support DPoP (_Recommended_)
+
 DPoP requires certain browser features. A user using a browser without the required features will unable to complete a request for tokens. It's recommended to verify browser support during application bootstrapping.
 
 ```javascript
@@ -482,17 +511,18 @@ DPoP requires certain browser features. A user using a browser without the requi
 useEffect(() => {
   if (!authClient.features.isDPoPSupported()) {
     // user will be unable to request tokens
-    navigate('/unsupported-error-page');
+    navigate("/unsupported-error-page");
   }
 }, []);
 ```
 
-#### Clear DPoP Storage (*Recommended*)
+#### Clear DPoP Storage (_Recommended_)
+
 DPoP requires the generation of a `CryptoKeyPair` which needs to be persisted in storage. Methods like `signOut()` or `revokeAccessToken()` will clear the key pair, however users don't always explicitly logout. It's therefore good practice to clear storage before login to flush any orphaned key pairs generated from previously requested tokens.
 
 ```javascript
-async function login (options) {
-  await authClient.clearDPoPStorage();      // clear possibly orphaned key pairs
+async function login(options) {
+  await authClient.clearDPoPStorage(); // clear possibly orphaned key pairs
 
   return authClient.signInWithRedirect(options);
 }
@@ -508,7 +538,7 @@ You may use the URL for your Okta organization as the issuer. This will apply a 
 
 ```javascript
 var config = {
-  issuer: 'https://{yourOktaDomain}'
+  issuer: "https://{yourOktaDomain}",
 };
 
 var authClient = new OktaAuth(config);
@@ -518,7 +548,7 @@ Okta allows you to create multiple custom OAuth 2.0 authorization servers that y
 
 ```javascript
 var config = {
-  issuer: 'https://{yourOktaDomain}/oauth2/default'
+  issuer: "https://{yourOktaDomain}/oauth2/default",
 };
 
 var authClient = new OktaAuth(config);
@@ -527,9 +557,8 @@ var authClient = new OktaAuth(config);
 You may also create and customize additional authorization servers.
 
 ```javascript
-
 var config = {
-  issuer: 'https://{yourOktaDomain}/oauth2/custom-auth-server-id'
+  issuer: "https://{yourOktaDomain}/oauth2/custom-auth-server-id",
 };
 
 var authClient = new OktaAuth(config);
@@ -555,7 +584,7 @@ The url that is redirected to when using `token.getWithRedirect`. This must be l
 
 #### `postLogoutRedirectUri`
 
-Specify the url where the browser should be redirected after [signOut](#signout). This url must be listed in your Okta application's [Logout redirect URIs](#logout-redirect-uris). If not specified, your application's origin (`window.location.origin`) will be used.  [Configuring your Okta application](#configuring-your-okta-application) |
+Specify the url where the browser should be redirected after [signOut](#signout). This url must be listed in your Okta application's [Logout redirect URIs](#logout-redirect-uris). If not specified, your application's origin (`window.location.origin`) will be used. [Configuring your Okta application](#configuring-your-okta-application) |
 
 #### `scopes`
 
@@ -575,16 +604,15 @@ Default value is `false`. Set to `true` to enable `DPoP` (Demonstrating Proof-of
 
 See Guide: [Enabling DPoP](#enabling-dpop)
 
-
 #### responseMode
 
 When requesting tokens using [token.getWithRedirect](#tokengetwithredirectoptions) values will be returned as parameters appended to the [redirectUri](#configuration-options).
 
 In most cases you will not need to set a value for `responseMode`. Defaults are set according to the [OpenID Connect 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html#Authentication).
 
-* For [PKCE OAuth Flow](#pkce-oauth-20-flow)), the authorization code will be in search query of the URL. Clients using the PKCE flow can opt to instead receive the authorization code in the hash fragment by setting the [responseMode](#configuration-options) option to "fragment".
+- For [PKCE OAuth Flow](#pkce-oauth-20-flow)), the authorization code will be in search query of the URL. Clients using the PKCE flow can opt to instead receive the authorization code in the hash fragment by setting the [responseMode](#configuration-options) option to "fragment".
 
-* For [Implicit OAuth Flow](#implicit-oauth-20-flow)), tokens will be in the hash fragment of the URL. This cannot be changed.
+- For [Implicit OAuth Flow](#implicit-oauth-20-flow)), tokens will be in the hash fragment of the URL. This cannot be changed.
 
 #### `responseType`
 
@@ -602,11 +630,15 @@ Specify a custom userinfoUrl. Defaults to the issuer plus "/v1/userinfo".
 
 Specify a custom tokenUrl. Defaults to the issuer plus "/v1/token".
 
+#### `introspectUrl`
+
+Specify a custom introspectUrl for token introspection. By default, the introspection endpoint is determined from the OAuth 2.0 metadata obtained from the issuer's well-known endpoint.
+
 #### `ignoreSignature`
 
 > :warning: This option should be used only for browser support and testing purposes.
 
-ID token signatures are validated by default when `token.getWithoutPrompt`, `token.getWithPopup`,  `token.getWithRedirect`, and `token.verify` are called. To disable ID token signature validation for these methods, set this value to `true`.
+ID token signatures are validated by default when `token.getWithoutPrompt`, `token.getWithPopup`, `token.getWithRedirect`, and `token.verify` are called. To disable ID token signature validation for these methods, set this value to `true`.
 
 #### `maxClockSkew`
 
@@ -616,7 +648,7 @@ Defaults to 300 (five minutes). This is the maximum difference allowed between a
 
 > :warning: This option disables token lifetime validation, which can introduce security vulnerability issues. This option should be used for testing purpose. Please handle the error in your own app for production environment.
 
-Token lifetimes are validated using the [maxClockSkew](#maxClockSkew). To override this and disable token lifetime validation, set this value to `true`. 
+Token lifetimes are validated using the [maxClockSkew](#maxClockSkew). To override this and disable token lifetime validation, set this value to `true`.
 
 #### `transformAuthState`
 
@@ -634,11 +666,11 @@ const config = {
     authState.isAuthenticated = !!user; // convert to boolean
     authState.users = user; // also store user object on authState
     return authState;
-  }
+  },
 };
 
 const oktaAuth = new OktaAuth(config);
-oktaAuth.authStateManager.subscribe(authState => {
+oktaAuth.authStateManager.subscribe((authState) => {
   // handle latest authState
 });
 oktaAuth.authStateManager.updateAuthState();
@@ -656,9 +688,9 @@ const config = {
   restoreOriginalUri: async (oktaAuth, originalUri) => {
     // redirect with custom router
     router.replace({
-      path: toRelativeUrl(originalUri, baseUrl)
+      path: toRelativeUrl(originalUri, baseUrl),
     });
-  }
+  },
 };
 
 const oktaAuth = new OktaAuth(config);
@@ -683,21 +715,20 @@ Used in authorization and interaction code flows by server-side web applications
 
 Used in authorization and interaction code flows by server-side web applications to customize the redirect process.
 
-
 #### `httpRequestClient`
 
 The http request implementation. By default, this is implemented using [cross-fetch](https://github.com/lquixada/cross-fetch). To provide your own request library, implement the following interface:
 
-  1. Must accept:
-      * method (http method)
-      * url (target url)
-      * args (object containing headers and data)
-  2. Must return a Promise that resolves with a raw XMLHttpRequest response
+1. Must accept:
+   - method (http method)
+   - url (target url)
+   - args (object containing headers and data)
+2. Must return a Promise that resolves with a raw XMLHttpRequest response
 
 ```javascript
 var config = {
-  url: 'https://{yourOktaDomain}',
-  httpRequestClient: function(method, url, args) {
+  url: "https://{yourOktaDomain}",
+  httpRequestClient: function (method, url, args) {
     // args is in the form:
     // {
     //   headers: {
@@ -707,8 +738,8 @@ var config = {
     //   withCredentials: true|false,
     // }
     return Promise.resolve(/* a raw XMLHttpRequest response */);
-  }
-}
+  },
+};
 ```
 
 #### `storageManager`
@@ -716,32 +747,19 @@ var config = {
 The `storageManager` provides access to client storage for specific purposes. `storageManager` configuration is divided into named sections. The default configuration is shown below:
 
 ```javascript
-
 var config = {
   storageManager: {
     token: {
-      storageTypes: [
-        'localStorage',
-        'sessionStorage',
-        'cookie'
-      ],
+      storageTypes: ["localStorage", "sessionStorage", "cookie"],
     },
     cache: {
-      storageTypes: [
-        'localStorage',
-        'sessionStorage',
-        'cookie'
-      ]
+      storageTypes: ["localStorage", "sessionStorage", "cookie"],
     },
     transaction: {
-      storageTypes: [
-        'sessionStorage',
-        'localStorage',
-        'cookie'
-      ]
-    }
-  }
-}
+      storageTypes: ["sessionStorage", "localStorage", "cookie"],
+    },
+  },
+};
 ```
 
 **Important:** If neither [localStorage][] nor [sessionStorage][] are available, the default storage provider may fall back to using [cookie][] storage on some clients, . If your site will always be served over a HTTPS connection, you may want to forcibly enable "secure" cookies. This option will prevent cookies from being stored on an HTTP connection.
@@ -749,19 +767,19 @@ var config = {
 ```javascript
 var config = {
   cookies: {
-    secure: true
-  }
-}
+    secure: true,
+  },
+};
 ```
 
 ##### `storageType`
 
 The following values for `storageType` are recognized:
 
-* `memory`: values are stored in a closure and will not survive a page reload
-* `sessionStorage`: will only be available to the current browser tab
-* `localStorage`: available to all browser tabs
-* `cookie`: available to all browser tabs, and server-side code
+- `memory`: values are stored in a closure and will not survive a page reload
+- `sessionStorage`: will only be available to the current browser tab
+- `localStorage`: available to all browser tabs
+- `cookie`: available to all browser tabs, and server-side code
 
 **Note:** If the specified `storageType` is not available, but matches an entry in `storageTypes`, then default fallback logic will be applied. To disable this behavior, set `storageTypes` to an empty array:
 
@@ -769,11 +787,11 @@ The following values for `storageType` are recognized:
 var config = {
   storageManager: {
     token: {
-      storageType: 'sessionStorage',
-      storageTypes: []
-    }
-  }
-}
+      storageType: "sessionStorage",
+      storageTypes: [],
+    },
+  },
+};
 ```
 
 or set the `storageTypes` property with only one entry:
@@ -782,10 +800,10 @@ or set the `storageTypes` property with only one entry:
 var config = {
   storageManager: {
     token: {
-      storageTypes: ['sessionStorage']
-    }
-  }
-}
+      storageTypes: ["sessionStorage"],
+    },
+  },
+};
 ```
 
 If fallback logic is disabled, the [storageManager](#storagemanager) may throw an exception if an instance of the given `storageType` cannot be created.
@@ -804,35 +822,35 @@ A `storageProvider` must provide a simple but specific API to access client stor
 
 A custom storage provider must implement two functions:
 
-* `getItem(key)`
-* `setItem(key, value)`
+- `getItem(key)`
+- `setItem(key, value)`
 
 Optionally, a storage provider can also implement a `removeItem` function. If `removeItem` is not implemented, values will be cleared but keys will persist.
 
 ```javascript
 const myMemoryStore = {};
 const storageProvider = {
-  getItem: function(key) {
+  getItem: function (key) {
     // custom get
     return myMemoryStore[key];
   },
-  setItem: function(key, val) {
+  setItem: function (key, val) {
     // custom set
     myMemoryStore[key] = val;
   },
   // optional
-  removeItem: function(key) {
+  removeItem: function (key) {
     delete myMemoryStore[key];
-  }
-}
+  },
+};
 
 var config = {
   storageManager: {
     token: {
-      storageProvider: storageProvider
-    }
-  }
-}
+      storageProvider: storageProvider,
+    },
+  },
+};
 ```
 
 #### `tokenManager`
@@ -842,12 +860,13 @@ If `cookie` storage is specified, it is possible to specify whether or not a ses
 ```javascript
 var config = {
   cookies: {
-    sessionCookie: true
-  }
-}
+    sessionCookie: true,
+  },
+};
 ```
 
 ##### `autoRenew`
+
 > :warning: Moved to [TokenService](#tokenservice). For backwards compatibility will set `services.tokenService.autoRenew`
 
 ##### `expireEarlySeconds`
@@ -862,14 +881,16 @@ To facilitate a more stable user experience, tokens are considered expired 30 se
 // Emit expired event 2 minutes before expiration
 // Tokens accessed with tokenManager.get() will auto-renew within 2 minutes of expiration
 tokenManager: {
-  expireEarlySeconds: 120
+  expireEarlySeconds: 120;
 }
 ```
 
 ##### `autoRemove`
+
 > :warning: Moved to [TokenService](#tokenservice). For backwards compatibility will set `services.tokenService.autoRenew`
 
 ##### `syncStorage`
+
 > :warning: Moved to [SyncStorageService](#syncstorageservice). For backwards compatibility will set `services.syncStorageService.enable`
 
 ##### `storageKey`
@@ -880,18 +901,17 @@ By default all tokens will be stored under the key `okta-token-storage`. You may
 
 Specify the [storage type](#storagetype) for tokens. This will override any value set for the `token` section in the [storageManager](#storagemanager) configuration. By default, [localStorage][] will be used. This will fall back to [sessionStorage][] or [cookie][] if the previous type is not available. You may pass an object or a string. If passing an object, it should meet the requirements of a [custom storage provider](#storage). Pass a string to specify one of the built-in storage types:
 
-* [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) (default)
-* [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
-* [`cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
-* `memory`: a simple in-memory storage provider
+- [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) (default)
+- [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
+- [`cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
+- `memory`: a simple in-memory storage provider
 
 ```javascript
-
 var config = {
-  url: 'https://{yourOktaDomain}',
+  url: "https://{yourOktaDomain}",
   tokenManager: {
-    storage: 'sessionStorage'
-  }
+    storage: "sessionStorage",
+  },
 };
 
 var authClient = new OktaAuth(config);
@@ -902,31 +922,30 @@ A custom [storage provider](#storageprovider) instance can also be passed here. 
 ```javascript
 var myMemoryStore = {};
 const storageProvider = {
-  getItem: function(key) {
+  getItem: function (key) {
     // custom get
     return myMemoryStore[key];
   },
-  setItem: function(key, val) {
+  setItem: function (key, val) {
     // custom set
     myMemoryStore[key] = val;
   },
   // optional
-  removeItem: function(key) {
+  removeItem: function (key) {
     delete myMemoryStore[key];
-  }
-}
+  },
+};
 
 const config = {
-  url: 'https://{yourOktaDomain}',
+  url: "https://{yourOktaDomain}",
   tokenManager: {
-    storage: storageProvider
-  }
+    storage: storageProvider,
+  },
 };
 
 const authClient = new OktaAuth(config);
 const { tokens } = await authClient.token.getWithoutPrompt();
 authClient.tokenManager.setTokens(tokens); // storageProvider.setItem
-
 ```
 
 #### `cookies`
@@ -946,10 +965,12 @@ Defaults to `none` if the `secure` option is `true`, or `lax` if the `secure` op
 Defaults to `true`, set this option to false if you want to opt-out of the default clearing pendingRemove tokens behaviour when `tokenManager.start()` is called.
 
 ### `services`
+
 > :gear: Requires a [running service](#running-as-a-service)
-The following configurations require `OktaAuth` to be running as a service. See [running service](#running-as-a-service) for more info.
+> The following configurations require `OktaAuth` to be running as a service. See [running service](#running-as-a-service) for more info.
 
 Default configuration:
+
 ```javascript
 services: {
   autoRenew: true,
@@ -961,109 +982,116 @@ services: {
 ```
 
 #### `autoRenew`
+
 When `true`, the library will attempt to renew tokens before they expire. If you wish to manually control token renewal, set `autoRenew` to `false` to disable this feature. You can listen to [`expired`](#tokenmanageronevent-callback-context) events to know when the token has expired.
 
 > **NOTE** tokens are considered `expired` slightly before their actual expiration time. For more info, see [expireEarlySeconds](#expireearlyseconds).
 
 In version `6.X`, the `autoRenew` configuration was set in `config.tokenManager`. To maintain backwards compatibility, this configuration is still respected but with a slight caveat. `tokenManager.autoRenew` configures 2 token auto renew strategies, `active` and `passive`.
-*  `active` - Network requests are made in the background in an attempt to refresh tokens before they are truly expired to maintain a seamless UX.
-    > :warning: this can cause an unintended side effect where the session never expires because it is constantly being refreshed (extended) before the actual expiration time
-*  `passive` - Token refresh attempts are only made when `oktaAuth.isAuthenticated` is called and the current tokens are determined to be expired.
+
+- `active` - Network requests are made in the background in an attempt to refresh tokens before they are truly expired to maintain a seamless UX.
+  > :warning: this can cause an unintended side effect where the session never expires because it is constantly being refreshed (extended) before the actual expiration time
+- `passive` - Token refresh attempts are only made when `oktaAuth.isAuthenticated` is called and the current tokens are determined to be expired.
 
 When `tokenManager.autoRenew` is `true` both renew strategies are enabled. To disable the `active` strategy, set `tokenManager.autoRenew` to `true` and `services.autoRenew` to `false`. To disable both renew strategies set either `tokenManager.autoRenew` or `services.autoRenew` to `false`
 
 #### `autoRemove`
+
 By default, the library will attempt to remove expired tokens when `autoRemove` is `true`. If you wish to disable auto removal of tokens, set `autoRemove` to `false`.
 
 #### `syncStorage`
+
 Automatically syncs tokens across browser tabs when it's supported in browser (browser supports native broadcastchannel API, IndexDB or localStorage). To disable this behavior, set `syncStorage` to false.
 
 This is accomplished by selecting a single tab to handle the network requests to refresh the tokens and broadcasting to the other tabs. This is done to avoid all tabs sending refresh requests simultaneously, which can cause rate limiting/throttling issues.
 
 #### `renewOnTabActivation`
+
 > NOTE: This service requires `autoRenew: true`
 
 When enabled (`{ autoRenew: true, renewOnTabActivation: true }`), this service binds a handler to the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) which attempts a token renew (if needed) when the tab becomes active after a (configurable) inactivity period
 
 #### `tabInactivityDuration`
+
 The amount of time, in seconds, a tab needs to be inactive for the `RenewOnTabActivation` service to attempt a token renew. Defaults to `1800` (30 mins)
 
-
 ## API Reference
-<!-- no toc -->
-* [start](#start)
-* [stop](#stop)
-* [signIn](#signinoptions)
-* [signInWithCredentials](#signinwithcredentialsoptions)
-* [signInWithRedirect](#signinwithredirectoptions)
-* [signOut](#signout)
-* [closeSession](#closesession)
-* [revokeAccessToken](#revokeaccesstokenaccesstoken)
-* [revokeRefreshToken](#revokerefreshtokenrefreshtoken)
-* [forgotPassword](#forgotpasswordoptions)
-* [unlockAccount](#unlockaccountoptions)
-* [verifyRecoveryToken](#verifyrecoverytokenoptions)
-* [webfinger](#webfingeroptions)
-* [fingerprint](#fingerprintoptions)
-* [isAuthenticated](#isauthenticatedoptions)
-* [getUser](#getuser)
-* [getIdToken](#getidtoken)
-* [getAccessToken](#getaccesstoken)
-* [getOrRenewAccessToken](#getorrenewaccesstoken)
-* [storeTokensFromRedirect](#storetokensfromredirect)
-* [setOriginalUri](#setoriginaluriuri)
-* [getOriginalUri](#getoriginaluristate)
-* [removeOriginalUri](#removeoriginaluri)
-* [isLoginRedirect](#isloginredirect)
-* [handleLoginRedirect](#handleloginredirecttokens-originaluri)
-* [handleRedirect](#handleredirectoriginaluri)
-* [setHeaders](#setheaders)
-* [tx.resume](#txresume)
-* [tx.exists](#txexists)
-* [transaction.status](#transactionstatus)
-* [getDPoPAuthorizationHeaders](#getdpopauthorizationheaders)
-* [parseUseDPoPNonceError](#parseusedpopnonceerror)
-* [clearDPoPStorage](#cleardpopstorage)
-* [session](#session)
-  * [session.setCookieAndRedirect](#sessionsetcookieandredirectsessiontoken-redirecturi)
-  * [session.exists](#sessionexists)
-  * [session.get](#sessionget)
-  * [session.refresh](#sessionrefresh)
-* [idx](#idx)
-* [myaccount](#myaccount)
-* [endpoints](#endpoints)
-  * [endpoints.autorize.enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions)
-* [token](#token)
-  * [token.getWithoutPrompt](#tokengetwithoutpromptoptions)
-  * [token.getWithPopup](#tokengetwithpopupoptions)
-  * [token.getWithRedirect](#tokengetwithredirectoptions)
-  * [token.parseFromUrl](#tokenparsefromurloptions)
-  * [token.decode](#tokendecodeidtokenstring)
-  * [token.renew](#tokenrenewtokentorenew)
-  * [token.getUserInfo](#tokengetuserinfoaccesstokenobject-idtokenobject)
-  * [token.verify](#tokenverifyidtokenobject)
-  * [token.isLoginRedirect](#tokenisloginredirect)
-  * [token.prepareTokenParams](#tokenpreparetokenparams)
-  * [token.exchangeCodeForTokens](#tokenexchangecodefortokens)
-* [tokenManager](#tokenmanager-api)
-  * [tokenManager.add](#tokenmanageraddkey-token)
-  * [tokenManager.get](#tokenmanagergetkey)
-  * [tokenManager.getTokens](#tokenmanagergettokens)
-  * [tokenManager.setTokens](#tokenmanagersettokenstokens)
-  * [tokenManager.remove](#tokenmanagerremovekey)
-  * [tokenManager.clear](#tokenmanagerclear)
-  * [tokenManager.renew](#tokenmanagerrenewkey)
-  * [tokenManager.on](#tokenmanageronevent-callback-context)
-  * [tokenManager.off](#tokenmanageroffevent-callback)
-* [authStateManager](#authstatemanager)
-  * [authStateManager.getAuthState](#authstatemanagergetauthstate)
-  * [authStateManager.updateAuthState](#authstatemanagerupdateauthstate)
-  * [authStateManager.subscribe](#authstatemanagersubscribehandler)
-  * [authStateManager.unsubscribe](#authstatemanagerunsubscribehandler)
-* [http](#http)
-  * [http.setRequestHeader](#httpsetrequestheader)
 
-------
+<!-- no toc -->
+
+- [start](#start)
+- [stop](#stop)
+- [signIn](#signinoptions)
+- [signInWithCredentials](#signinwithcredentialsoptions)
+- [signInWithRedirect](#signinwithredirectoptions)
+- [signOut](#signout)
+- [closeSession](#closesession)
+- [revokeAccessToken](#revokeaccesstokenaccesstoken)
+- [revokeRefreshToken](#revokerefreshtokenrefreshtoken)
+- [forgotPassword](#forgotpasswordoptions)
+- [unlockAccount](#unlockaccountoptions)
+- [verifyRecoveryToken](#verifyrecoverytokenoptions)
+- [webfinger](#webfingeroptions)
+- [fingerprint](#fingerprintoptions)
+- [isAuthenticated](#isauthenticatedoptions)
+- [getUser](#getuser)
+- [getIdToken](#getidtoken)
+- [getAccessToken](#getaccesstoken)
+- [getOrRenewAccessToken](#getorrenewaccesstoken)
+- [storeTokensFromRedirect](#storetokensfromredirect)
+- [setOriginalUri](#setoriginaluriuri)
+- [getOriginalUri](#getoriginaluristate)
+- [removeOriginalUri](#removeoriginaluri)
+- [isLoginRedirect](#isloginredirect)
+- [handleLoginRedirect](#handleloginredirecttokens-originaluri)
+- [handleRedirect](#handleredirectoriginaluri)
+- [setHeaders](#setheaders)
+- [tx.resume](#txresume)
+- [tx.exists](#txexists)
+- [transaction.status](#transactionstatus)
+- [getDPoPAuthorizationHeaders](#getdpopauthorizationheaders)
+- [parseUseDPoPNonceError](#parseusedpopnonceerror)
+- [clearDPoPStorage](#cleardpopstorage)
+- [session](#session)
+  - [session.setCookieAndRedirect](#sessionsetcookieandredirectsessiontoken-redirecturi)
+  - [session.exists](#sessionexists)
+  - [session.get](#sessionget)
+  - [session.refresh](#sessionrefresh)
+- [idx](#idx)
+- [myaccount](#myaccount)
+- [endpoints](#endpoints)
+  - [endpoints.autorize.enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions)
+- [token](#token)
+  - [token.getWithoutPrompt](#tokengetwithoutpromptoptions)
+  - [token.getWithPopup](#tokengetwithpopupoptions)
+  - [token.getWithRedirect](#tokengetwithredirectoptions)
+  - [token.parseFromUrl](#tokenparsefromurloptions)
+  - [token.decode](#tokendecodeidtokenstring)
+  - [token.renew](#tokenrenewtokentorenew)
+  - [token.getUserInfo](#tokengetuserinfoaccesstokenobject-idtokenobject)
+  - [token.verify](#tokenverifyidtokenobject)
+  - [token.isLoginRedirect](#tokenisloginredirect)
+  - [token.prepareTokenParams](#tokenpreparetokenparams)
+  - [token.exchangeCodeForTokens](#tokenexchangecodefortokens)
+- [tokenManager](#tokenmanager-api)
+  - [tokenManager.add](#tokenmanageraddkey-token)
+  - [tokenManager.get](#tokenmanagergetkey)
+  - [tokenManager.getTokens](#tokenmanagergettokens)
+  - [tokenManager.setTokens](#tokenmanagersettokenstokens)
+  - [tokenManager.remove](#tokenmanagerremovekey)
+  - [tokenManager.clear](#tokenmanagerclear)
+  - [tokenManager.renew](#tokenmanagerrenewkey)
+  - [tokenManager.on](#tokenmanageronevent-callback-context)
+  - [tokenManager.off](#tokenmanageroffevent-callback)
+- [authStateManager](#authstatemanager)
+  - [authStateManager.getAuthState](#authstatemanagergetauthstate)
+  - [authStateManager.updateAuthState](#authstatemanagerupdateauthstate)
+  - [authStateManager.subscribe](#authstatemanagersubscribehandler)
+  - [authStateManager.unsubscribe](#authstatemanagerunsubscribehandler)
+- [http](#http)
+  - [http.setRequestHeader](#httpsetrequestheader)
+
+---
 
 ### `start()`
 
@@ -1100,7 +1128,7 @@ if (authClient.isLoginRedirect()) {
   } catch (e) {
     // log or display error details
   }
-} else if (!await authClient.isAuthenticated()) {
+} else if (!(await authClient.isAuthenticated())) {
   // Start the browser based oidc flow, then parse tokens from the redirect callback url
   authClient.signInWithRedirect();
 } else {
@@ -1115,47 +1143,47 @@ if (authClient.isLoginRedirect()) {
 
 Signs the user out of their current [Okta session](https://developer.okta.com/docs/api/resources/sessions) and clears all tokens stored locally in the `TokenManager`. By default, the refresh token (if any) and access token are revoked so they can no longer be used. Some points to consider:
 
-* Will redirect to an Okta-hosted page before returning to your app.
-* If a `postLogoutRedirectUri` has not been specified or configured, `window.location.origin` will be used as the return URI. This URI must be listed in the Okta application's [Login redirect URIs](#login-redirect-uris). If the URI is unknown or invalid the redirect will end on a 400 error page from Okta. This error will be visible to the user and cannot be handled by the app.
-* Requires a valid ID token. If an ID token is not available, `signOut` will fallback to using the XHR-based [closeSession](#closesession) method. This method may fail to sign the user out if 3rd-party cookies have been blocked by the browser.
-* If a fallback to [closeSession](#closesession) is used, `signOut()` returns a promise that resolves with the result of [closeSession](#closesession) (`true` if an existing Okta session have been closed or `false` if a session does not exist or has already been closed). Otherwise a promise resolves with `true`.
-* For more information, see [Logout](https://developer.okta.com/docs/reference/api/oidc/#logout) in the OIDC API documentation.
+- Will redirect to an Okta-hosted page before returning to your app.
+- If a `postLogoutRedirectUri` has not been specified or configured, `window.location.origin` will be used as the return URI. This URI must be listed in the Okta application's [Login redirect URIs](#login-redirect-uris). If the URI is unknown or invalid the redirect will end on a 400 error page from Okta. This error will be visible to the user and cannot be handled by the app.
+- Requires a valid ID token. If an ID token is not available, `signOut` will fallback to using the XHR-based [closeSession](#closesession) method. This method may fail to sign the user out if 3rd-party cookies have been blocked by the browser.
+- If a fallback to [closeSession](#closesession) is used, `signOut()` returns a promise that resolves with the result of [closeSession](#closesession) (`true` if an existing Okta session have been closed or `false` if a session does not exist or has already been closed). Otherwise a promise resolves with `true`.
+- For more information, see [Logout](https://developer.okta.com/docs/reference/api/oidc/#logout) in the OIDC API documentation.
 
 `signOut` takes the following options:
 
-* `postLogoutRedirectUri` - Setting a value will override the `postLogoutRedirectUri` configured on the SDK. This will default to `window.location.origin` if no value is provided. To prevent this explicitly pass `null` to leverage the default behavior of `/logout`. If `signOut` falls back to `closeSession` `window.location.origin` will still be used as the default value, even if `null` is passed.
-* `state` - An optional value, used along with `postLogoutRedirectUri`. If set, this value will be returned as a query parameter during the redirect to the `postLogoutRedirectUri`
-* `idToken` - Specifies the ID token object. By default, `signOut` will look for a token object named `idToken` within the `TokenManager`. If you have stored the id token object in a different location, you should retrieve it first and then pass it here.
-* `clearTokensBeforeRedirect` - If `true` (default: `false`) local tokens will be removed before the logout redirect happens. Otherwise a flag (`pendingRemove`) will be added to each local token instead of clearing them immediately. Calling `oktaAuth.start()` after logout redirect will clear local tokens if flags are found. **Use this option with care**: removing local tokens before fully terminating the Okta SSO session can result in logging back in again when using [`@okta/okta-react`](https://www.npmjs.com/package/@okta/okta-react)'s [`SecureRoute`](https://github.com/okta/okta-react#secureroute) component.
-* `revokeAccessToken` - If `false` (default: `true`) the access token will not be revoked. Use this option with care: not revoking tokens may pose a security risk if tokens have been leaked outside the application.
-* `revokeRefreshToken` - If `false` (default: `true`) the refresh token will not be revoked. Use this option with care: not revoking tokens may pose a security risk if tokens have been leaked outside the application.  Revoking a refresh token will revoke any access tokens minted by it, even if `revokeAccessToken` is `false`.
-* `accessToken` - Specifies the access token object. By default, `signOut` will look for a token object named `accessToken` within the `TokenManager`. If you have stored the access token object in a different location, you should retrieve it first and then pass it here. This options is ignored if the `revokeAccessToken` option is `false`.
+- `postLogoutRedirectUri` - Setting a value will override the `postLogoutRedirectUri` configured on the SDK. This will default to `window.location.origin` if no value is provided. To prevent this explicitly pass `null` to leverage the default behavior of `/logout`. If `signOut` falls back to `closeSession` `window.location.origin` will still be used as the default value, even if `null` is passed.
+- `state` - An optional value, used along with `postLogoutRedirectUri`. If set, this value will be returned as a query parameter during the redirect to the `postLogoutRedirectUri`
+- `idToken` - Specifies the ID token object. By default, `signOut` will look for a token object named `idToken` within the `TokenManager`. If you have stored the id token object in a different location, you should retrieve it first and then pass it here.
+- `clearTokensBeforeRedirect` - If `true` (default: `false`) local tokens will be removed before the logout redirect happens. Otherwise a flag (`pendingRemove`) will be added to each local token instead of clearing them immediately. Calling `oktaAuth.start()` after logout redirect will clear local tokens if flags are found. **Use this option with care**: removing local tokens before fully terminating the Okta SSO session can result in logging back in again when using [`@okta/okta-react`](https://www.npmjs.com/package/@okta/okta-react)'s [`SecureRoute`](https://github.com/okta/okta-react#secureroute) component.
+- `revokeAccessToken` - If `false` (default: `true`) the access token will not be revoked. Use this option with care: not revoking tokens may pose a security risk if tokens have been leaked outside the application.
+- `revokeRefreshToken` - If `false` (default: `true`) the refresh token will not be revoked. Use this option with care: not revoking tokens may pose a security risk if tokens have been leaked outside the application. Revoking a refresh token will revoke any access tokens minted by it, even if `revokeAccessToken` is `false`.
+- `accessToken` - Specifies the access token object. By default, `signOut` will look for a token object named `accessToken` within the `TokenManager`. If you have stored the access token object in a different location, you should retrieve it first and then pass it here. This options is ignored if the `revokeAccessToken` option is `false`.
 
 ```javascript
 // Sign out using the default options
-authClient.signOut()
+authClient.signOut();
 ```
 
 ```javascript
 // Override the post logout URI for this call
 authClient.signOut({
-  postLogoutRedirectUri: `${window.location.origin}/logout/callback`
+  postLogoutRedirectUri: `${window.location.origin}/logout/callback`,
 });
 ```
 
 ```javascript
 // In this case, the ID token is stored under the 'myIdToken' key
-var idToken = await authClient.tokenManager.get('myIdToken');
+var idToken = await authClient.tokenManager.get("myIdToken");
 authClient.signOut({
-  idToken: idToken
+  idToken: idToken,
 });
 ```
 
 ```javascript
 // In this case, the access token is stored under the 'myAccessToken' key
-var accessToken = await authClient.tokenManager.get('myAccessToken');
+var accessToken = await authClient.tokenManager.get("myAccessToken");
 authClient.signOut({
-  accessToken: accessToken
+  accessToken: accessToken,
 });
 ```
 
@@ -1166,15 +1194,16 @@ authClient.signOut({
 
 Signs the user out of their current [Okta session](https://developer.okta.com/docs/api/resources/sessions) and clears all tokens stored locally in the `TokenManager`. Returns a promise that resolves with `true` if an existing Okta session have been closed, or `false` if a session does not exist or has already been closed. This method is an XHR-based alternative to [signOut](#signout), which will redirect to Okta before returning to your application. Here are some points to consider when using this method:
 
-* Executes in the background. The user will see not any change to `window.location`.
-* The method will fail to sign the user out if 3rd-party cookies are blocked by the browser.
-* Does not revoke the access token. It is strongly recommended to call [revokeAccessToken](#revokeaccesstokenaccesstoken) before calling this method
-* It is recommended (but not required) for the app to call `window.location.reload()` after the `XHR` method completes to ensure your app is properly re-initialized in an unauthenticated state.
-* For more information, see [Close Current Session](https://developer.okta.com/docs/reference/api/sessions/#close-current-session) in the Session API documentation.
+- Executes in the background. The user will see not any change to `window.location`.
+- The method will fail to sign the user out if 3rd-party cookies are blocked by the browser.
+- Does not revoke the access token. It is strongly recommended to call [revokeAccessToken](#revokeaccesstokenaccesstoken) before calling this method
+- It is recommended (but not required) for the app to call `window.location.reload()` after the `XHR` method completes to ensure your app is properly re-initialized in an unauthenticated state.
+- For more information, see [Close Current Session](https://developer.okta.com/docs/reference/api/sessions/#close-current-session) in the Session API documentation.
 
 ```javascript
 await authClient.revokeAccessToken(); // strongly recommended
-authClient.closeSession()
+authClient
+  .closeSession()
   .then((sessionClosed) => {
     if (sessionClosed) {
       window.location.reload(); // optional
@@ -1182,11 +1211,11 @@ authClient.closeSession()
       // Session does not exist or has already been closed
     }
   })
-  .catch(e => {
+  .catch((e) => {
     if (e.xhr && e.xhr.status === 429) {
       // Too many requests
     }
-  })
+  });
 ```
 
 ### `revokeAccessToken(accessToken)`
@@ -1219,20 +1248,21 @@ See [authn API](docs/authn.md#verifyrecoverytokenoptions).
 
 Calls the [Webfinger](https://tools.ietf.org/html/rfc7033) API and gets a response.
 
-* `resource` - URI that identifies the entity whose information is sought, currently only acct scheme is supported (e.g acct:dade.murphy@example.com)
-* `rel` - Optional parameter to request only a subset of the information that would otherwise be returned without the "rel" parameter
+- `resource` - URI that identifies the entity whose information is sought, currently only acct scheme is supported (e.g acct:dade.murphy@example.com)
+- `rel` - Optional parameter to request only a subset of the information that would otherwise be returned without the "rel" parameter
 
 ```javascript
-authClient.webfinger({
-  resource: 'acct:john.joe@example.com',
-  rel: 'okta:idp'
-})
-.then(function(res) {
-  // use the webfinger response to select an idp
-})
-.catch(function(err) {
-  console.error(err);
-});
+authClient
+  .webfinger({
+    resource: "acct:john.joe@example.com",
+    rel: "okta:idp",
+  })
+  .then(function (res) {
+    // use the webfinger response to select an idp
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
 ```
 
 ### `fingerprint(options)`
@@ -1241,16 +1271,17 @@ authClient.webfinger({
 
 Creates a browser fingerprint. See [Primary authentication with device fingerprint](https://developer.okta.com/docs/reference/api/authn/#primary-authentication-with-device-fingerprinting) for more information.
 
-* `timeout` - Time in ms until the operation times out. Defaults to `15000`.
+- `timeout` - Time in ms until the operation times out. Defaults to `15000`.
 
 ```javascript
-authClient.fingerprint()
-.then(function(fingerprint) {
-  // Do something with the fingerprint
-})
-.catch(function(err) {
-  console.log(err);
-})
+authClient
+  .fingerprint()
+  .then(function (fingerprint) {
+    // Do something with the fingerprint
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ### `isAuthenticated(options?)`
@@ -1260,10 +1291,11 @@ authClient.fingerprint()
 Resolves with `authState.isAuthenticated` from non-pending [authState](#authstatemanager).
 
 `options`
-*  `expiredTokenBehavior`: `'renew'` (default) | `'remove'` | `'none'`
-  * `'renew'` - attempt to renew token before `Promise` resolves
-  * `'remove'` - removes token
-  * `'none'` - neither renews or removes expired token
+
+- `expiredTokenBehavior`: `'renew'` (default) | `'remove'` | `'none'`
+- `'renew'` - attempt to renew token before `Promise` resolves
+- `'remove'` - removes token
+- `'none'` - neither renews or removes expired token
 
 > NOTE: `tokenManager.autoRenew` and `tokenManager.autoRemove` determine the default value for `expiredTokenBehavior`
 
@@ -1348,23 +1380,23 @@ Can set (or unset) request headers after construction.
 
 ```javascript
 const authClient = new OktaAuth({
-  issuer: 'https://{yourOktaDomain}',
+  issuer: "https://{yourOktaDomain}",
 
   // headers can be set during construction
   headers: {
-    foo: 'bar'
-  }
+    foo: "bar",
+  },
 });
 
 // Headers can be set (or modified) after construction
 authClient.setHeaders({
-  foo: 'baz'
+  foo: "baz",
 });
 
 // Headers can be removed
 authClient.setHeaders({
-  foo: undefined
-})
+  foo: undefined,
+});
 ```
 
 ### `tx.resume()`
@@ -1387,8 +1419,9 @@ See [authn API](docs/authn.md#transactionstatus).
 Requires [dpop](#dpop) set to `true`. Returns `Authorization` and `Dpop` header values to build a DPoP protected-request.
 
 Params: `url` and (http) `method` are required.
-*  `accessToken` is optional, but will be read from `tokenStorage` if not provided
-*  `nonce` is optional, may be provided via `use_dpop_nonce` pattern from Resource Server ([more info](#handling-use_dpop_nonce))
+
+- `accessToken` is optional, but will be read from `tokenStorage` if not provided
+- `nonce` is optional, may be provided via `use_dpop_nonce` pattern from Resource Server ([more info](#handling-use_dpop_nonce))
 
 ### `parseUseDPoPNonceError(headers)`
 
@@ -1427,8 +1460,7 @@ See [authn API](docs/authn.md#sessionsetcookieandredirectsessiontoken-redirectur
 Returns a promise that resolves with `true` if there is an existing Okta [session](https://developer.okta.com/docs/api/resources/sessions#example), or `false` if not.
 
 ```javascript
-authClient.session.exists()
-.then(function(exists) {
+authClient.session.exists().then(function (exists) {
   if (exists) {
     // logged in
   } else {
@@ -1446,13 +1478,14 @@ authClient.session.exists()
 Gets the active [session](https://developer.okta.com/docs/api/resources/sessions#example).
 
 ```javascript
-authClient.session.get()
-.then(function(session) {
-  // logged in
-})
-.catch(function(err) {
-  // not logged in
-});
+authClient.session
+  .get()
+  .then(function (session) {
+    // logged in
+  })
+  .catch(function (err) {
+    // not logged in
+  });
 ```
 
 #### `session.refresh()`
@@ -1464,13 +1497,14 @@ authClient.session.get()
 Refresh the current session by extending its lifetime. This can be used as a keep-alive operation.
 
 ```javascript
-authClient.session.refresh()
-.then(function(session) {
-  // existing session is now refreshed
-})
-.catch(function(err) {
-  // there was a problem refreshing (the user may not have an existing session)
-});
+authClient.session
+  .refresh()
+  .then(function (session) {
+    // existing session is now refreshed
+  })
+  .catch(function (err) {
+    // there was a problem refreshing (the user may not have an existing session)
+  });
 ```
 
 ### `idx`
@@ -1487,75 +1521,74 @@ See detail in [MyAccount API README](docs/myaccount/README.md)
 
 The following configuration options can be included in `token.getWithoutPrompt`, `token.getWithPopup`, or `token.getWithRedirect`. If an option with the same name is accepted in the constructor, passing the option to one of these methods will override the previously set value.
 
-| Options | Description |
-| :-------: | ----------|
-| `sessionToken` | Specify an Okta sessionToken to skip reauthentication when the user already authenticated using the Authentication Flow. |
-| `responseType` | Specify the [response type](https://developer.okta.com/docs/api/resources/oidc#request-parameters) for OIDC authentication when using the [Implicit OAuth Flow](#implicit-oauth-20-flow). The default value is `['token', 'id_token']` which will request both an access token and ID token. If `pkce` is `true`, both the access and ID token will be requested and this option will be ignored. |
-| `scopes` | Specify what information to make available in the returned `id_token` or `access_token`. For OIDC, you must include `openid` as one of the scopes. Defaults to `['openid', 'email']`. For a list of available scopes, see [Scopes and Claims](https://developer.okta.com/docs/api/resources/oidc#access-token-scopes-and-claims). |
-| `state` | A string that will be passed to `/authorize` endpoint and returned in the OAuth response. The value is used to validate the OAuth response and prevent cross-site request forgery (CSRF). The `state` value passed to [getWithRedirect](#tokengetwithredirectoptions) will be returned along with any requested tokens from [parseFromUrl](#tokenparsefromurloptions). Your app can use this string to perform additional validation and/or pass information from the login page. Defaults to a random string. |
-| `nonce` | Specify a nonce that will be validated in an `id_token`. This is usually only provided during redirect flows to obtain an authorization code that will be exchanged for an `id_token`. Defaults to a random string. |
-| `idp` | Identity provider to use if there is no Okta Session. |
-| `idpScope` | A space delimited list of scopes to be provided to the Social Identity Provider when performing [Social Login][social-login] These scopes are used in addition to the scopes already configured on the Identity Provider. |
-| `display` | The display parameter to be passed to the Social Identity Provider when performing [Social Login][social-login]. |
-| `prompt` | Determines whether the Okta login will be displayed on failure. Use `none` to prevent this behavior. Valid values: `none`, `consent`, `login`, or `consent login`. See [Parameter details](https://developer.okta.com/docs/reference/api/oidc/#parameter-details) for more information.  Special value `enroll_authenticator` is used for [enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions). |
-| `maxAge` | Allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta. |
-| `acrValues` | [[EA][early-access]] Optional parameter to increase the level of user assurance. See [Predefined ACR values](https://developer.okta.com/docs/guides/step-up-authentication/main/#predefined-parameter-values) for more information. |
-| `enrollAmrValues` | [[EA][early-access]] List of [authentication methods](https://self-issued.info/docs/draft-jones-oauth-amr-values-00.html) used to enroll authenticators with [enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions). See [Parameter details](https://developer.okta.com/docs/reference/api/oidc/#parameter-details) for more information. |
-| `loginHint` | A username to prepopulate if prompting for authentication. |
+|      Options      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| :---------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  `sessionToken`   | Specify an Okta sessionToken to skip reauthentication when the user already authenticated using the Authentication Flow.                                                                                                                                                                                                                                                                                                                                                                                       |
+|  `responseType`   | Specify the [response type](https://developer.okta.com/docs/api/resources/oidc#request-parameters) for OIDC authentication when using the [Implicit OAuth Flow](#implicit-oauth-20-flow). The default value is `['token', 'id_token']` which will request both an access token and ID token. If `pkce` is `true`, both the access and ID token will be requested and this option will be ignored.                                                                                                              |
+|     `scopes`      | Specify what information to make available in the returned `id_token` or `access_token`. For OIDC, you must include `openid` as one of the scopes. Defaults to `['openid', 'email']`. For a list of available scopes, see [Scopes and Claims](https://developer.okta.com/docs/api/resources/oidc#access-token-scopes-and-claims).                                                                                                                                                                              |
+|      `state`      | A string that will be passed to `/authorize` endpoint and returned in the OAuth response. The value is used to validate the OAuth response and prevent cross-site request forgery (CSRF). The `state` value passed to [getWithRedirect](#tokengetwithredirectoptions) will be returned along with any requested tokens from [parseFromUrl](#tokenparsefromurloptions). Your app can use this string to perform additional validation and/or pass information from the login page. Defaults to a random string. |
+|      `nonce`      | Specify a nonce that will be validated in an `id_token`. This is usually only provided during redirect flows to obtain an authorization code that will be exchanged for an `id_token`. Defaults to a random string.                                                                                                                                                                                                                                                                                            |
+|       `idp`       | Identity provider to use if there is no Okta Session.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|    `idpScope`     | A space delimited list of scopes to be provided to the Social Identity Provider when performing [Social Login][social-login] These scopes are used in addition to the scopes already configured on the Identity Provider.                                                                                                                                                                                                                                                                                      |
+|     `display`     | The display parameter to be passed to the Social Identity Provider when performing [Social Login][social-login].                                                                                                                                                                                                                                                                                                                                                                                               |
+|     `prompt`      | Determines whether the Okta login will be displayed on failure. Use `none` to prevent this behavior. Valid values: `none`, `consent`, `login`, or `consent login`. See [Parameter details](https://developer.okta.com/docs/reference/api/oidc/#parameter-details) for more information. Special value `enroll_authenticator` is used for [enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions).                                                                                                 |
+|     `maxAge`      | Allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.                                                                                                                                                                                                                                                                                                                                                                                                       |
+|    `acrValues`    | [[EA][early-access]] Optional parameter to increase the level of user assurance. See [Predefined ACR values](https://developer.okta.com/docs/guides/step-up-authentication/main/#predefined-parameter-values) for more information.                                                                                                                                                                                                                                                                            |
+| `enrollAmrValues` | [[EA][early-access]] List of [authentication methods](https://self-issued.info/docs/draft-jones-oauth-amr-values-00.html) used to enroll authenticators with [enrollAuthenticator](#endpointsauthorizeenrollauthenticatoroptions). See [Parameter details](https://developer.okta.com/docs/reference/api/oidc/#parameter-details) for more information.                                                                                                                                                        |
+|    `loginHint`    | A username to prepopulate if prompting for authentication.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 For more details, see Okta's [Authorize Request API](https://developer.okta.com/docs/api/resources/oidc#request-parameters).
 
 #### `endpoints.authorize.enrollAuthenticator(options)`
 
-> :link: web browser only <br>
-> [Early Access][early-access]
+> :link: web browser only <br> > [Early Access][early-access]
 
 Enroll authenticators using a redirect to [authorizeUrl](#authorizeurl) with special parameters. After a successful enrollment, the browser will be redirected to the configured [redirectUri](#configuration-options). You can use [sdk.handleRedirect](#handleredirectoriginaluri) to handle the redirect on successful enrollment or an error.
 
-* `options` - See [Authorize options](#authorize-options)
+- `options` - See [Authorize options](#authorize-options)
 
-  Options that will be omitted: `scopes`, `nonce`. 
+  Options that will be omitted: `scopes`, `nonce`.
 
   Options that will be overridden: `responseType: 'none', prompt: 'enroll_authenticator'`.
 
   Required options:
 
-  * `enrollAmrValues` - list of [authentication methods](https://self-issued.info/docs/draft-jones-oauth-amr-values-00.html) to allow the user to enroll in.
+  - `enrollAmrValues` - list of [authentication methods](https://self-issued.info/docs/draft-jones-oauth-amr-values-00.html) to allow the user to enroll in.
 
     List of AMR values:
-    | AMR Value     | Authenticator        |
+    | AMR Value | Authenticator |
     | ------------- | -------------------- |
-    | `pwd`         | Okta Password        |
-    | `kba`         | Security question    |
-    | `email`       | Okta Email           |
-    | `sms`         | SMS                  |
-    | `tel`         | Voice call           |
-    | `duo`         | DUO                  |
-    | `symantec`    | Symantec VIP         |
-    | `google_otp`  | Google Authenticator |
-    | `okta_verify` | Okta Verify          |
-    | `swk`         | Custom App           |
-    | `pop`         | WebAuthn             |
-    | `oath_otp`    | On-Prem MFA          |
-    | `rsa`         | RSA SecurID          |
-    | `yubikey`     | Yubikey              |
-    | `otp`         | Custom HOTP          |
-    | `fed`         | External IdP         |
-    | `sc` + `swk`  | SmartCard/PIV        |
+    | `pwd` | Okta Password |
+    | `kba` | Security question |
+    | `email` | Okta Email |
+    | `sms` | SMS |
+    | `tel` | Voice call |
+    | `duo` | DUO |
+    | `symantec` | Symantec VIP |
+    | `google_otp` | Google Authenticator |
+    | `okta_verify` | Okta Verify |
+    | `swk` | Custom App |
+    | `pop` | WebAuthn |
+    | `oath_otp` | On-Prem MFA |
+    | `rsa` | RSA SecurID |
+    | `yubikey` | Yubikey |
+    | `otp` | Custom HOTP |
+    | `fed` | External IdP |
+    | `sc` + `swk` | SmartCard/PIV |
 
   See [enroll_amr_values parameter details](https://developer.okta.com/docs/reference/api/oidc/#request-parameters) for more information.
 
-  * `acrValues` - must be `urn:okta:2fa:any:ifpossible`, which means the user is prompted for at least one factor before enrollment.
+  - `acrValues` - must be `urn:okta:2fa:any:ifpossible`, which means the user is prompted for at least one factor before enrollment.
 
 ##### Example
 
 ```javascript
 try {
   authClient.endpoints.authorize.enrollAuthenticator({
-    enrollAmrValues: ['okta_verify'],
-    acrValues: 'urn:okta:2fa:any:ifpossible'
-  })
-} catch(err) {
+    enrollAmrValues: ["okta_verify"],
+    acrValues: "urn:okta:2fa:any:ifpossible",
+  });
+} catch (err) {
   // handle AuthSdkError
 }
 ```
@@ -1570,7 +1603,7 @@ try {
 
 When you've obtained a sessionToken from the authorization flows, or a session already exists, you can obtain a token or tokens without prompting the user to log in.
 
-* `options` - See [Authorize options](#authorize-options)
+- `options` - See [Authorize options](#authorize-options)
 
 ##### Example
 
@@ -1606,19 +1639,20 @@ authClient.token.getWithoutPrompt({
 
 Create token with a popup.
 
-* `options` - See [Authorize options](#authorize-options)
+- `options` - See [Authorize options](#authorize-options)
 
 ```javascript
-authClient.token.getWithPopup(options)
-.then(function(res) {
-  var tokens = res.tokens;
+authClient.token
+  .getWithPopup(options)
+  .then(function (res) {
+    var tokens = res.tokens;
 
-  // Do something with tokens, such as
-  authClient.tokenManager.setTokens(tokens);
-})
-.catch(function(err) {
-  // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
-});
+    // Do something with tokens, such as
+    authClient.tokenManager.setTokens(tokens);
+  })
+  .catch(function (err) {
+    // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
+  });
 ```
 
 #### `token.getWithRedirect(options)`
@@ -1628,16 +1662,17 @@ authClient.token.getWithPopup(options)
 
 Create token using a redirect. After a successful authentication, the browser will be redirected to the configured [redirectUri](#configuration-options). The authorization code, access, or ID Tokens will be available as parameters appended to this URL. Values will be returned in either the search query or hash fragment portion of the URL depending on the [responseMode](#responsemode)
 
-* `options` - See [Authorize options](#authorize-options)
+- `options` - See [Authorize options](#authorize-options)
 
 ```javascript
-authClient.token.getWithRedirect({
-  responseType: ['token', 'id_token'],
-  state: 'any-string-you-want-to-pass-to-callback' // will be URI encoded
-})
-.catch(function(err) {
-  // handle AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
-});
+authClient.token
+  .getWithRedirect({
+    responseType: ["token", "id_token"],
+    state: "any-string-you-want-to-pass-to-callback", // will be URI encoded
+  })
+  .catch(function (err) {
+    // handle AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
+  });
 ```
 
 #### `token.parseFromUrl(options)`
@@ -1647,7 +1682,8 @@ authClient.token.getWithRedirect({
 
 Parses the authorization code, access, or ID Tokens from the URL after a successful authentication redirect. Values are parsed from either the search query or hash fragment portion of the URL depending on the [responseMode](#responsemode).
 
-If an authorization code is present, it will be exchanged for token(s) by posting to the `tokenUrl` endpoint. 
+If an authorization code is present, it will be exchanged for token(s) by posting to the `tokenUrl` endpoint.
+
 > **Note:** Authorization code has a lifetime of one minute and can only be used once.
 
 The ID token will be [verified and validated](https://github.com/okta/okta-auth-js#tokenverifyidtokenobject) before available for use.
@@ -1656,19 +1692,20 @@ In case access token is a part of OIDC flow response, its hash will be checked a
 The `state` string which was passed to `getWithRedirect` will be also be available on the response.
 
 ```javascript
-authClient.token.parseFromUrl()
-.then(function(res) {
-  var state = res.state; // passed to getWithRedirect(), can be any string
+authClient.token
+  .parseFromUrl()
+  .then(function (res) {
+    var state = res.state; // passed to getWithRedirect(), can be any string
 
-  // manage token or tokens
-  var tokens = res.tokens;
+    // manage token or tokens
+    var tokens = res.tokens;
 
-  // Do something with tokens, such as
-  authClient.tokenManager.setTokens(tokens);
-})
-.catch(function(err) {
-  // handle OAuthError
-});
+    // Do something with tokens, such as
+    authClient.tokenManager.setTokens(tokens);
+  })
+  .catch(function (err) {
+    // handle OAuthError
+  });
 ```
 
 After reading values, this method will rewrite either the hash fragment or search query portion of the URL (depending on the [responseMode](#responsemode)) so that the code or tokens are no longer present or visible to the user. For this reason, it is recommended to use a dedicated route or path for the [redirectUri](#configuration-options) so that this URL rewrite does not interfere with other URL parameters which may be used by your application. A complete login flow will usually save the current URL before calling `getWithRedirect` and restore the URL after saving tokens from `parseFromUrl`.
@@ -1677,41 +1714,42 @@ After reading values, this method will rewrite either the hash fragment or searc
 // On any page while unauthenticated. Begin login flow
 
 // Save URL
-sessionStorage.setItem('url', window.location.href);
+sessionStorage.setItem("url", window.location.href);
 
 // Redirect to Okta
 authClient.token.getWithRedirect({
-  responseType: 'token'
+  responseType: "token",
 });
 ```
 
 ```javascript
 // On callback (redirectUri) page
-authClient.token.parseFromUrl()
-.then(function(res) {
-  // Save token
-  authClient.tokenManager.setTokens(res.tokens);
+authClient.token
+  .parseFromUrl()
+  .then(function (res) {
+    // Save token
+    authClient.tokenManager.setTokens(res.tokens);
 
-  // Read saved URL from storage
-  const url = sessionStorage.getItem('url');
-  sessionStorage.removeItem('url');
+    // Read saved URL from storage
+    const url = sessionStorage.getItem("url");
+    sessionStorage.removeItem("url");
 
-  // Restore URL
-  window.location.assign(url);
-})
-.catch(function(err) {
-  // Handle OAuthError
-});
+    // Restore URL
+    window.location.assign(url);
+  })
+  .catch(function (err) {
+    // Handle OAuthError
+  });
 ```
 
 #### `token.decode(idTokenString)`
 
 Decode a raw ID Token
 
-* `idTokenString` - an id_token JWT
+- `idTokenString` - an id_token JWT
 
 ```javascript
-const decodedToken = authClient.token.decode('YOUR_ID_TOKEN_JWT');
+const decodedToken = authClient.token.decode("YOUR_ID_TOKEN_JWT");
 console.log(decodedToken.header, decodedToken.payload, decodedToken.signature);
 ```
 
@@ -1722,27 +1760,30 @@ console.log(decodedToken.header, decodedToken.payload, decodedToken.signature);
 
 Returns a new token if the Okta [session](https://developer.okta.com/docs/api/resources/sessions#example) is still valid.
 
-* `tokenToRenew` - an access token or ID token previously provided by Okta. note: this is not the raw JWT
+- `tokenToRenew` - an access token or ID token previously provided by Okta. note: this is not the raw JWT
 
 ```javascript
 // this token is provided by Okta via getWithoutPrompt, getWithPopup, and parseFromUrl
 var tokenToRenew = {
-  idToken: 'YOUR_ID_TOKEN_JWT',
-  claims: { /* token claims */ },
+  idToken: "YOUR_ID_TOKEN_JWT",
+  claims: {
+    /* token claims */
+  },
   expiresAt: 1449699930,
-  scopes: ['openid', 'email'],
-  authorizeUrl: 'https://{yourOktaDomain}/oauth2/v1/authorize',
-  issuer: 'https://{yourOktaDomain}',
-  clientId: 'NPSfOkH5eZrTy8PMDlvx'
+  scopes: ["openid", "email"],
+  authorizeUrl: "https://{yourOktaDomain}/oauth2/v1/authorize",
+  issuer: "https://{yourOktaDomain}",
+  clientId: "NPSfOkH5eZrTy8PMDlvx",
 };
 
-authClient.token.renew(tokenToRenew)
-.then(function(freshToken) {
-  // manage freshToken
-})
-.catch(function(err) {
-  // handle OAuthError
-});
+authClient.token
+  .renew(tokenToRenew)
+  .then(function (freshToken) {
+    // manage freshToken
+  })
+  .catch(function (err) {
+    // handle OAuthError
+  });
 ```
 
 #### `token.getUserInfo(accessTokenObject, idTokenObject)`
@@ -1751,37 +1792,38 @@ authClient.token.renew(tokenToRenew)
 
 Retrieve the [details about a user](https://developer.okta.com/docs/api/resources/oidc#response-example-success).
 
-* `accessTokenObject` - (optional) an access token returned by this library. **Note**: this is not the raw access token.
-* `idTokenObject` - (optional) an ID token returned by this library. **Note**: this is not the raw ID token.
+- `accessTokenObject` - (optional) an access token returned by this library. **Note**: this is not the raw access token.
+- `idTokenObject` - (optional) an ID token returned by this library. **Note**: this is not the raw ID token.
 
 By default, if no parameters are passed, both the access token and ID token objects will be retrieved from the TokenManager. It is assumed that the access token is stored using the key "accessToken" and the ID token is stored under the key "idToken". If you have stored either token in a non-standard location, this logic can be skipped by passing the access and ID token objects directly.
 
 ```javascript
 // access and ID tokens are retrieved automatically from the TokenManager
-authClient.token.getUserInfo()
-.then(function(user) {
-  // user has details about the user
-})
-.catch(function(err) {
-  // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
-});
+authClient.token
+  .getUserInfo()
+  .then(function (user) {
+    // user has details about the user
+  })
+  .catch(function (err) {
+    // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
+  });
 ```
 
 ```javascript
 // In this example, the access token is stored under the key 'myAccessToken', the ID token is stored under the key "myIdToken"
 Promise.all([
-  authClient.tokenManager.get('myAccessToken'),
-  authClient.tokenManager.get('myIdToken')
+  authClient.tokenManager.get("myAccessToken"),
+  authClient.tokenManager.get("myIdToken"),
 ])
-.then(([accessTokenObject, idTokenObject]) => {
-  return authClient.token.getUserInfo(accessTokenObject, idTokenObject);
-})
-.then(function(user) {
-  // user has details about the user
-})
-.catch((err) => {
-  // handle AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
-});
+  .then(([accessTokenObject, idTokenObject]) => {
+    return authClient.token.getUserInfo(accessTokenObject, idTokenObject);
+  })
+  .then(function (user) {
+    // user has details about the user
+  })
+  .catch((err) => {
+    // handle AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
+  });
 ```
 
 #### `token.verify(idTokenObject)`
@@ -1792,21 +1834,22 @@ Manually verify the validity of an ID token's claims and check the signature on 
 
 > **Note:** Token validation occurs automatically when tokens are returned via `getWithoutPrompt`, `getWithPopup`, and `getWithRedirect`.
 
-* `idTokenObject` - an ID token returned by this library. note: this is not the raw ID token JWT
-* `validationOptions` - Optional object to assert ID token claim values. Defaults to the configuration passed in during client instantiation.
+- `idTokenObject` - an ID token returned by this library. note: this is not the raw ID token JWT
+- `validationOptions` - Optional object to assert ID token claim values. Defaults to the configuration passed in during client instantiation.
 
 ```javascript
 var validationOptions = {
-  issuer: 'https://{yourOktaDomain}/oauth2/{authorizationServerId}'
-}
+  issuer: "https://{yourOktaDomain}/oauth2/{authorizationServerId}",
+};
 
-authClient.token.verify(idTokenObject, validationOptions)
-.then(function() {
-  // the idToken is valid
-})
-.catch(function(err) {
-  // handle AuthSdkError
-});
+authClient.token
+  .verify(idTokenObject, validationOptions)
+  .then(function () {
+    // the idToken is valid
+  })
+  .catch(function (err) {
+    // handle AuthSdkError
+  });
 ```
 
 #### `token.isLoginRedirect`
@@ -1822,20 +1865,18 @@ Returns a `TokenParams` object. If `PKCE` is enabled, this object will contain v
 
 Used internally to perform the final step of the `PKCE` authorization code flow. Accepts a `TokenParams` object which should contain a `codeVerifier` and an `authorizationCode`.
 
-
 ### `tokenManager` API
 
 #### `tokenManager.add(key, token)`
 
 After receiving an `access_token` or `id_token`, add it to the `tokenManager` to manage token expiration and renew operations. When a token is added to the `tokenManager`, it is automatically renewed when it expires.
 
-* `key` - Unique key to store the token in the `tokenManager`. This is used later when you want to get, delete, or renew the token.
-* `token` - Token object that will be added
+- `key` - Unique key to store the token in the `tokenManager`. This is used later when you want to get, delete, or renew the token.
+- `token` - Token object that will be added
 
 ```javascript
-authClient.token.getWithPopup()
-.then(function(res) {
-  authClient.tokenManager.add('idToken', res.tokens.idToken);
+authClient.token.getWithPopup().then(function (res) {
+  authClient.tokenManager.add("idToken", res.tokens.idToken);
 });
 ```
 
@@ -1845,22 +1886,23 @@ authClient.token.getWithPopup()
 
 Get a token that you have previously added to the `tokenManager` with the given `key`. The token object will be returned if it exists in storage. Tokens will be removed from storage if they have expired and `autoRenew` is false or if there was an error while renewing the token. The `tokenManager` will emit a `removed` event when tokens are removed.
 
-* `key` - Key for the token you want to get
+- `key` - Key for the token you want to get
 
 ```javascript
-authClient.tokenManager.get('idToken')
-.then(function(token) {
-  if (token && !authClient.tokenManager.hasExpired(token)) {
-    // Token is valid
-    console.log(token);
-  } else {
-    // Token has been removed due to expiration or error while renewing
-  }
-})
-.catch(function(err) {
-  // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
-  console.error(err);
-});
+authClient.tokenManager
+  .get("idToken")
+  .then(function (token) {
+    if (token && !authClient.tokenManager.hasExpired(token)) {
+      // Token is valid
+      console.log(token);
+    } else {
+      // Token has been removed due to expiration or error while renewing
+    }
+  })
+  .catch(function (err) {
+    // handle OAuthError or AuthSdkError (AuthSdkError will be thrown if app is in OAuthCallback state)
+    console.error(err);
+  });
 ```
 
 #### `tokenManager.getTokens()`
@@ -1870,10 +1912,9 @@ authClient.tokenManager.get('idToken')
 Returns storage key agnostic tokens set for available tokens from storage. It returns empty object (`{}`) if no token is in storage.
 
 ```javascript
-authClient.tokenManager.getTokens()
-  .then(({ accessToken, idToken }) => {
-    // handle accessToken and idToken
-  });
+authClient.tokenManager.getTokens().then(({ accessToken, idToken }) => {
+  // handle accessToken and idToken
+});
 ```
 
 #### `tokenManager.setTokens(tokens)`
@@ -1888,10 +1929,10 @@ A synchronous method which returns `true` if the token has expired. The `tokenMa
 
 Remove a token from the `tokenManager` with the given `key`.
 
-* `key` - Key for the token you want to remove
+- `key` - Key for the token you want to remove
 
 ```javascript
-authClient.tokenManager.remove('idToken');
+authClient.tokenManager.remove("idToken");
 ```
 
 #### `tokenManager.clear()`
@@ -1912,51 +1953,50 @@ Remove all tokens with `pendingRemove` flags. This method is called within `toke
 
 Manually renew a token before it expires and update the stored value.
 
-* `key` - Key for the token you want to renew
+- `key` - Key for the token you want to renew
 
 ```javascript
 // Because the renew() method is async, you can wait for it to complete
 // by using the returned Promise:
-authClient.tokenManager.renew('idToken')
-.then(function (newToken) {
+authClient.tokenManager.renew("idToken").then(function (newToken) {
   console.log(newToken);
 });
 
 // Alternatively, you can subscribe to the 'renewed' event:
-authClient.tokenManager.on('renewed', function (key, newToken, oldToken) {
+authClient.tokenManager.on("renewed", function (key, newToken, oldToken) {
   console.log(newToken);
 });
-authClient.tokenManager.renew('idToken');
+authClient.tokenManager.renew("idToken");
 ```
 
 #### `tokenManager.on(event, callback[, context])`
 
 Subscribe to an event published by the `tokenManager`.
 
-* `event` - Event to subscribe to. Possible events are:
-  * `added` - Fired when a new token has been added or updated (regardless of whether or not the token value was changed).
-  * `expired` - Fired before a token is set to expire (using `expireEarlySeconds` option, 30 seconds by default). If `autoRenew` option is set to true, a listener will be attached to this event and an attempt will be made to renew the token when the event fires.
-  * `error` - Fired when a token renew attempt has failed. This is a permanent error, and the token will be removed from storage.
-  * `renewed` - Fired when a token has been renewed by the `tokenManager`, either via the `autoRenew` process or as a result of calling `tokenManager.renew`
-  * `removed` - Fired when a token is removed from storage as a result of renew failure, or a call to `tokenManager.remove`. (This event will not fire from `tokenManager.clear`)
-* `callback` - Function to call when the event is triggered
-* `context` - Optional context to bind the callback to
+- `event` - Event to subscribe to. Possible events are:
+  - `added` - Fired when a new token has been added or updated (regardless of whether or not the token value was changed).
+  - `expired` - Fired before a token is set to expire (using `expireEarlySeconds` option, 30 seconds by default). If `autoRenew` option is set to true, a listener will be attached to this event and an attempt will be made to renew the token when the event fires.
+  - `error` - Fired when a token renew attempt has failed. This is a permanent error, and the token will be removed from storage.
+  - `renewed` - Fired when a token has been renewed by the `tokenManager`, either via the `autoRenew` process or as a result of calling `tokenManager.renew`
+  - `removed` - Fired when a token is removed from storage as a result of renew failure, or a call to `tokenManager.remove`. (This event will not fire from `tokenManager.clear`)
+- `callback` - Function to call when the event is triggered
+- `context` - Optional context to bind the callback to
 
 ```javascript
 // Triggered when a token has expired
-authClient.tokenManager.on('expired', function (key, expiredToken) {
-  console.log('Token with key', key, ' has expired:');
+authClient.tokenManager.on("expired", function (key, expiredToken) {
+  console.log("Token with key", key, " has expired:");
   console.log(expiredToken);
 });
 // Triggered when a token has been renewed
-authClient.tokenManager.on('renewed', function (key, newToken, oldToken) {
-  console.log('Token with key', key, 'has been renewed');
-  console.log('Old token:', oldToken);
-  console.log('New token:', newToken);
+authClient.tokenManager.on("renewed", function (key, newToken, oldToken) {
+  console.log("Token with key", key, "has been renewed");
+  console.log("Old token:", oldToken);
+  console.log("New token:", newToken);
 });
 // Triggered when an OAuthError is returned via the API (typically during token renew)
-authClient.tokenManager.on('error', function (err) {
-  console.log('TokenManager error:', err);
+authClient.tokenManager.on("error", function (err) {
+  console.log("TokenManager error:", err);
   // err.name
   // err.message
   // err.errorCode
@@ -1970,12 +2010,12 @@ authClient.tokenManager.on('error', function (err) {
 
 Unsubscribe from `tokenManager` events. If no callback is provided, unsubscribes all listeners from the event.
 
-* `event` - Event to unsubscribe from
-* `callback` - Optional callback that was used to subscribe to the event
+- `event` - Event to unsubscribe from
+- `callback` - Optional callback that was used to subscribe to the event
 
 ```javascript
-authClient.tokenManager.off('renewed');
-authClient.tokenManager.off('renewed', myRenewedCallback);
+authClient.tokenManager.off("renewed");
+authClient.tokenManager.off("renewed", myRenewedCallback);
 ```
 
 ### `authStateManager`
@@ -1984,10 +2024,10 @@ authClient.tokenManager.off('renewed', myRenewedCallback);
 
 The emitted `AuthState` object includes:
 
-* `isAuthenticated`: true if the user is considered authenticated. Normally this is true if both an idToken and an accessToken are present in the tokenManager, but this behavior can be overridden if you passed a [transformAuthState](#transformauthstate) callback in the [configuration](#configuration-reference).
-* `accessToken`: the JWT accessToken for the currently authenticated user (if provided by the scopes).
-* `idToken`: the JWT idToken for the currently authenticated user (if provided by the scopes).
-* `error`: contains the error returned if an error occurs in the `authState` evaluation process.
+- `isAuthenticated`: true if the user is considered authenticated. Normally this is true if both an idToken and an accessToken are present in the tokenManager, but this behavior can be overridden if you passed a [transformAuthState](#transformauthstate) callback in the [configuration](#configuration-reference).
+- `accessToken`: the JWT accessToken for the currently authenticated user (if provided by the scopes).
+- `idToken`: the JWT idToken for the currently authenticated user (if provided by the scopes).
+- `error`: contains the error returned if an error occurs in the `authState` evaluation process.
 
 Subscribes to `authStateChange` event:
 
@@ -2012,7 +2052,7 @@ Produces a unique `authState` object and emits an `authStateChange` event. The [
 The app needs call this method to call this method to initial the [authState](#authstatemanager).
 
 ```javascript
-authClient.authStateManager.subscribe(authState => {
+authClient.authStateManager.subscribe((authState) => {
   // handle emitted latest authState
 });
 if (!authClient.isLoginRedirect()) {
@@ -2042,11 +2082,11 @@ To include this library in your project, you can follow the instructions in the 
 You only need to set the `issuer` for your Okta Domain:
 
 ```javascript
-var OktaAuth = require('@okta/okta-auth-js').OktaAuth;
+var OktaAuth = require("@okta/okta-auth-js").OktaAuth;
 
 var config = {
   // The URL for your Okta organization
-  issuer: 'https://{yourOktaDomain}'
+  issuer: "https://{yourOktaDomain}",
 };
 
 var authClient = new OktaAuth(config);
@@ -2064,25 +2104,25 @@ Sets the value for a request header after [configuration options](#configuration
 
 Since the Node library can be used only for the Authentication flow, it implements only a subset of okta-auth-js APIs:
 
-* [signIn](#signinoptions)
-* [forgotPassword](#forgotpasswordoptions)
-* [unlockAccount](#unlockaccountoptions)
-* [verifyRecoveryToken](#verifyrecoverytokenoptions)
-* [tx.resume](#txresume)
-* [tx.exists](#txexists)
-* [transaction.status](#transactionstatus)
-  * [LOCKED_OUT](#locked_out)
-  * [PASSWORD_EXPIRED](#password_expired)
-  * [PASSWORD_RESET](#password_reset)
-  * [PASSWORD_WARN](#password_warn)
-  * [RECOVERY](#recovery)
-  * [RECOVERY_CHALLENGE](#recovery_challenge)
-  * [MFA_ENROLL](#mfa_enroll)
-  * [MFA_ENROLL_ACTIVATE](#mfa_enroll_activate)
-  * [MFA_REQUIRED](#mfa_required)
-  * [MFA_CHALLENGE](#mfa_challenge)
-  * [SUCCESS](#success)
-* [idx](#idx)
+- [signIn](#signinoptions)
+- [forgotPassword](#forgotpasswordoptions)
+- [unlockAccount](#unlockaccountoptions)
+- [verifyRecoveryToken](#verifyrecoverytokenoptions)
+- [tx.resume](#txresume)
+- [tx.exists](#txexists)
+- [transaction.status](#transactionstatus)
+  - [LOCKED_OUT](#locked_out)
+  - [PASSWORD_EXPIRED](#password_expired)
+  - [PASSWORD_RESET](#password_reset)
+  - [PASSWORD_WARN](#password_warn)
+  - [RECOVERY](#recovery)
+  - [RECOVERY_CHALLENGE](#recovery_challenge)
+  - [MFA_ENROLL](#mfa_enroll)
+  - [MFA_ENROLL_ACTIVATE](#mfa_enroll_activate)
+  - [MFA_REQUIRED](#mfa_required)
+  - [MFA_CHALLENGE](#mfa_challenge)
+  - [SUCCESS](#success)
+- [idx](#idx)
 
 The main difference is that the Node library does **not** have a `session.setCookieAndRedirect` function, so you will have to redirect by yourself (for example using `res.redirect('https://www.yoursuccesspage.com')`).
 
@@ -2119,16 +2159,16 @@ yarn link @okta/okta-auth-js
 
 ### Build and Test Commands
 
-| Command               | Description                     |
-| --------------------- | ------------------------------- |
-| `yarn clean`          | Removes installed dependencies and build outputs |
-| `yarn install`        | Install dependencies            |
-| `yarn build`          | Build the SDK with a sourcemap  |
-| `yarn start`          | Start internal test app         |
-| `yarn lint`           | Run eslint linting              |
-| `yarn test:unit`      | Run only unit tests             |
-| `yarn test:e2e`       | Run only E2E (end-to-end) tests |
-| `yarn test`           | Run all tests                   |
+| Command          | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `yarn clean`     | Removes installed dependencies and build outputs |
+| `yarn install`   | Install dependencies                             |
+| `yarn build`     | Build the SDK with a sourcemap                   |
+| `yarn start`     | Start internal test app                          |
+| `yarn lint`      | Run eslint linting                               |
+| `yarn test:unit` | Run only unit tests                              |
+| `yarn test:e2e`  | Run only E2E (end-to-end) tests                  |
+| `yarn test`      | Run all tests                                    |
 
 #### Test Environment
 
@@ -2146,66 +2186,66 @@ The [CHANGELOG](CHANGELOG.md) contains details for all changes and links to the 
 
 ### From 6.x to 7.x
 
-* Requires Node version 14 or higher.
-* If using OIDC redirect flows with an embedded or Okta-hosted [Okta Sign-in Widget](https://github.com/okta/okta-signin-widget) widget version 5.4.0 or greater is required. [#1181](https://github.com/okta/okta-auth-js/pull/1181)
-* If using direct authentication with the IDX API:
-  * Server responses with a non-200 status code will not be thrown as exceptions. If a request results in an error response from the server, the `requestDidSucceed` property on the returned `IdxTransaction` will be set to `false`. [#1205](https://github.com/okta/okta-auth-js/pull/1205)
-  * `options` field is removed from the `nextStep` property of `IdxTransaction`. [#1271](https://github.com/okta/okta-auth-js/pull/1271)
-  * `shoudldProceedWithEmailAuthenticator` option is removed. [#1274](https://github.com/okta/okta-auth-js/pull/1274)
+- Requires Node version 14 or higher.
+- If using OIDC redirect flows with an embedded or Okta-hosted [Okta Sign-in Widget](https://github.com/okta/okta-signin-widget) widget version 5.4.0 or greater is required. [#1181](https://github.com/okta/okta-auth-js/pull/1181)
+- If using direct authentication with the IDX API:
+  - Server responses with a non-200 status code will not be thrown as exceptions. If a request results in an error response from the server, the `requestDidSucceed` property on the returned `IdxTransaction` will be set to `false`. [#1205](https://github.com/okta/okta-auth-js/pull/1205)
+  - `options` field is removed from the `nextStep` property of `IdxTransaction`. [#1271](https://github.com/okta/okta-auth-js/pull/1271)
+  - `shoudldProceedWithEmailAuthenticator` option is removed. [#1274](https://github.com/okta/okta-auth-js/pull/1274)
 
 ### From 5.x to 6.x
 
-* All async [IDX API](docs/idx.md) methods will either resolve with an IDX transaction object or throw an exception. In the previous version some exceptions were caught and returned as the `error` property on an IDX transaction object.
+- All async [IDX API](docs/idx.md) methods will either resolve with an IDX transaction object or throw an exception. In the previous version some exceptions were caught and returned as the `error` property on an IDX transaction object.
 
 ### From 4.x to 5.x
 
-* Token auto renew requires [running OktaAuth as a service](#running-as-a-service). To start the service, call [start()](#start). `start` will also call [updateAuthState](#authstatemanagerupdateauthstate) to set an initial [AuthState](#authstatemanager)
-* [getAuthState](#authstatemanagergetauthstate) will return `null` until an [AuthState](#authstatemanager) has been calculated.
-* `isPending` has been removed from [AuthState](#authstatemanager).
+- Token auto renew requires [running OktaAuth as a service](#running-as-a-service). To start the service, call [start()](#start). `start` will also call [updateAuthState](#authstatemanagerupdateauthstate) to set an initial [AuthState](#authstatemanager)
+- [getAuthState](#authstatemanagergetauthstate) will return `null` until an [AuthState](#authstatemanager) has been calculated.
+- `isPending` has been removed from [AuthState](#authstatemanager).
 
 ### From 3.x to 4.x
 
-* Now using named exports. You should change code like
+- Now using named exports. You should change code like
 
 ```javascript
 // 3.x used default export
-import OktaAuth from '@okta/okta-auth-js'
+import OktaAuth from "@okta/okta-auth-js";
 ```
 
 to
 
 ```javascript
 // 4.x uses named exports
-import { OktaAuth } from '@okta/okta-auth-js'
+import { OktaAuth } from "@okta/okta-auth-js";
 ```
 
 If using CommonJS, change
 
 ```javascript
 // In 3.x module.exports was the OktaAuth object
-const OktaAuth = require('@okta/okta-auth-js');
+const OktaAuth = require("@okta/okta-auth-js");
 ```
 
 to
 
 ```javascript
 // In 4.x module.exports has a property named 'OktaAauth'
-const OktaAuth = require('@okta/okta-auth-js').OktaAuth;
+const OktaAuth = require("@okta/okta-auth-js").OktaAuth;
 ```
 
-* For Typescript users: definitions for types in this library are now included. If you were providing your own definitions for `@okta/okta-auth-js` you should remove these in favor of the types exported by this library.
+- For Typescript users: definitions for types in this library are now included. If you were providing your own definitions for `@okta/okta-auth-js` you should remove these in favor of the types exported by this library.
 
-* `onSessionExpired` option has been removed. [TokenManager events](#tokenmanageronevent-callback-context) can be used to detect and handle token renewal errors.
+- `onSessionExpired` option has been removed. [TokenManager events](#tokenmanageronevent-callback-context) can be used to detect and handle token renewal errors.
 
 ### From 2.x to 3.x
 
-* Option `issuer` is [required](README.md#configuration-reference). Option `url` has been deprecated and is no longer used.
+- Option `issuer` is [required](README.md#configuration-reference). Option `url` has been deprecated and is no longer used.
 
-* The object returned from `token.parseFromUrl()` is no longer an array containing token objects. It is now an object with a property called `tokens` which is a dictionary containing token objects.
+- The object returned from `token.parseFromUrl()` is no longer an array containing token objects. It is now an object with a property called `tokens` which is a dictionary containing token objects.
 
-* New behavior for [signOut()](README.md#signout).
+- New behavior for [signOut()](README.md#signout).
 
-* The default `responseMode` for PKCE flow is now `query`.
+- The default `responseMode` for PKCE flow is now `query`.
 
 ## Contributing
 
